@@ -1,14 +1,10 @@
 # lithe-client-side
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the repository for my Bachelor thesis application: Lithe - a project management web application dedicated to Agile-oriented software development teams.
 
-## Recommended IDE Setup
+## Design
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Link to website design mock-ups: https://www.canva.com/folder/FAFeIZyEDL4
 
 ## Project Setup
 
