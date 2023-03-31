@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: (--font-family);
   -webkit-animation-delay: 0.1s;
   -webkit-animation-name: fontfix;
   -webkit-animation-duration: 0.1s;

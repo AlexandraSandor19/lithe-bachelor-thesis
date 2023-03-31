@@ -1,11 +1,10 @@
 <script setup>
+import Form from '../components/Form.vue';
 </script>
 
 <template>
   <main>
-    <div class="login-form">
-        This is the login section
-    </div>
+    <Form/>
   </main>
 </template>
 
