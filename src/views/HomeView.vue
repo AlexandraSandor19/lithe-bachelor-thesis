@@ -4,10 +4,19 @@ import Header from '../components/Header.vue'
 
 <template>
   <main>
-    <Header msg="Hello there!!!!" />
+    <Header />
+    <div class="hero">
+      Hero section
+    </div>
   </main>
 </template>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Anek+Telugu&family=Bebas+Neue&display=swap');
+<style lang="scss" scoped>
+    /* 
+    TODO: Better background color scheme/wallpaper?
+    */ 
+  .hero {
+    background-color: #5E376D;
+    height: calc(100vh - 5rem);
+  }
 </style>
