@@ -16,7 +16,7 @@ defineProps({
       <a href="/">Contact</a>
       <a href="/">About Scrum</a>
       <a href="/">Features</a>
-      <a href="/log-in">Log in</a>
+      <a class="shadow-2" href="/log-in">Log in</a>
     </div>
   </div>
 </template>
@@ -49,7 +49,6 @@ defineProps({
       font-size: 1rem;
       margin-left: 2rem;
       align-items: center;
-      border-bottom: 2px solid rgba(99, 99, 99, 0.2);
 
       &:last-child {
         color: #FFBD59;

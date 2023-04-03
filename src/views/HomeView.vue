@@ -6,7 +6,6 @@ import Header from '../components/Header.vue'
   <main>
     <Header />
     <div class="hero">
-      Hero section
     </div>
   </main>
 </template>

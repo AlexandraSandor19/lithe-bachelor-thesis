@@ -5,7 +5,7 @@ import Form from '../components/Form.vue';
 <template>
   <main>
     <div class="form">
-      <Form formType="log-in"/>
+      <Form formType="sign-up"/>
     </div>
   </main>
 </template>
