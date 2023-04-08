@@ -1,4 +1,4 @@
-# lithe-client-side
+# lithe
 
 This is the repository for my Bachelor thesis application: Lithe - a project management web application dedicated to Agile-oriented software development teams.
 
@@ -22,6 +22,14 @@ npm run dev
 
 ```sh
 npm run build
+```
+
+### Configure .env file for the Server Side
+
+```sh
+DATABASE_URI="mongodb+srv://<user>:<password>@cluster0.f6g4lbo.mongodb.net/lithe_auth?retryWrites=true&w=majority"
+ACCESS_TOKEN_SECRET=<GENERATED_ACCESS_TOKEN>
+REFRESH_TOKEN_SECRET=<GENERATED_REFRESH_TOKEN>
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
