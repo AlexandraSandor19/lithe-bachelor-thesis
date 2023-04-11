@@ -60,7 +60,6 @@ const btnText = computed(() => {
 </script>
 
 <template>
-    <!-- TODO: Update conditionally-rendered texts to computed values -->
         <div class="card">
             <Card class="form-container">
                 <template #title> {{ title }} </template>
