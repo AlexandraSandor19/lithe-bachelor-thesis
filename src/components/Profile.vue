@@ -106,18 +106,18 @@ const adUsername = computed(() => {
     .prf-section {
         display: flex;
         flex-direction: column;
-        font-family: 'PT Sans', sans-serif;
+        font-family: $pt-sans-font;
         padding: 1.3rem 3.2rem;
         min-width: 60rem;
         min-height: 40rem;
         padding-bottom: 0rem;
-        background-color: #FFFF;
+        background-color: $white;
         border-radius: 3px;
     }
 
     .prf-label {
-        color: rgb(33, 33, 33);
-        font-size: 2rem;
+        color: $dark-grey;
+        font-size: 1.8rem;
     }
 
     .image-section {
@@ -133,12 +133,12 @@ const adUsername = computed(() => {
         width: 14rem;
         height: 14rem;
         border-radius: 50%;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: $shadow1;
     }
 
     .info-label {
         padding: 0.7rem 0 0.6rem 1rem;
-        color: rgb(100, 100, 100);
+        color: $grey;
         font-size: 0.9rem;
         font-weight: 700;
     }
@@ -151,12 +151,12 @@ const adUsername = computed(() => {
         width: max-content;
 
         .fullname {
-            color: rgb(33, 33, 33);
+            color: $black-1;
             font-size: 1.8rem;
         }
 
         .username {
-            color: rgb(52, 52, 52);
+            color: $black-2;
             font-size: 1rem;           
         }
     }
@@ -179,7 +179,7 @@ const adUsername = computed(() => {
 
     .detail-label {
         margin-right: 1rem;
-        color: rgb(33, 33, 33);
+        color: $black-1;
         font-weight: 600;
     }
 
@@ -198,18 +198,18 @@ const adUsername = computed(() => {
     }
 
     .chip-circle {
-        background: linear-gradient(180deg, rgba(94,55,109,1) 0%, rgba(171,128,180,1) 56%, rgb(127, 81, 135) 100%);
+        background: linear-gradient(180deg, rgba(94,55,109,1) 0%, rgb(210, 163, 219) 56%, rgb(127, 81, 135) 100%);
         color: white;
     }
 
     .activity-label {
-        color: rgb(79, 79, 79);
+        color: $dark-grey;
         font-size: 0.9rem;
         font-weight: 600;
     }
 
     .see-more {
-        color: rgb(79, 79, 79);
+        color: $grey;
         font-size: 0.9rem;
         margin: 1rem 0 0.5rem 0.5rem;
         cursor: pointer;
@@ -219,13 +219,12 @@ const adUsername = computed(() => {
     .chip-label {
         margin-left: 0.5rem;
         font-size: 0.9rem;
-        font-family: 'PT Sans', sans-serif;
-        color: rgb(33, 33, 33);
+        font-family: $pt-sans-font;
+        color: $black-1;
     }
 
     .edit-btn {
-        color: rgb(93, 93, 93);
-        font-weight: 600;
+        color: $grey;
         cursor: pointer;
         font-size: 0.9rem;
         border: 2px solid #AB80B4;

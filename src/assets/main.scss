@@ -1,3 +1,5 @@
+@import "./colors.scss";
+
 body {
   margin: 0;
   font-family: (--font-family);
@@ -7,6 +9,7 @@ body {
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
 }
+
 
 @-webkit-keyframes fontfix {
   from { opacity: 1; }

@@ -15,7 +15,7 @@ import Header from '../components/Header.vue'
     TODO: Better background color scheme/wallpaper?
     */ 
   .hero {
-    background-color: #5E376D;
+    background-color: $bcg-purple-pure;
     height: calc(100vh - 5rem);
   }
 </style>

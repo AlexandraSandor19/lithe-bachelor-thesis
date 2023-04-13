@@ -23,21 +23,6 @@ const roles = ref([
 
 // TODO: Change multiple ref declaration to the state below
 
-// const state = ref({
-//     username: '',
-//     csurname: '',
-//     forename: '',
-//     email: '',
-//     password: '',
-//     confPassword: '',
-//     role: '',
-//     roles: ref([
-//         { title: 'Product Owner' },
-//         { title: 'Development Contributor' },
-//         { title: 'Scrum Master' },
-//     ]),  
-// })
-
 const title = computed(() => {
   return props.formType == 'sign-up' ? 'Get started!' : 'Log into your account!'
 })
@@ -181,7 +166,7 @@ const btnText = computed(() => {
         background-color: #8A6196;
         border: 2px solid #8A6196;
         border-radius: 0.2rem;
-        color: white;
+        color: $white;
         align-self: center;
         cursor: pointer;
         min-width: 20rem;
@@ -190,7 +175,7 @@ const btnText = computed(() => {
     .login-link {
         margin-left: 0.3rem;
         cursor: pointer;
-        color: #5E376D;
+        color: $bcg-purple-pure;
         text-decoration: underline;
     }
 

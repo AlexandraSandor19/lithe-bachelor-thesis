@@ -16,6 +16,6 @@
     margin-left: 5rem;
     font-size: 2.6rem;
     letter-spacing: 4px;
-    font-family: 'Edu NSW ACT Foundation', cursive;
+    font-family: $logo-font
   }
 </style>

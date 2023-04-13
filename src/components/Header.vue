@@ -29,7 +29,7 @@ defineProps({
     height: 5rem;
     margin: 0;
     position: relative;
-    background-color: #5E376D;
+    background-color: $bcg-purple-pure;
     -moz-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     -webkit-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
@@ -45,7 +45,7 @@ defineProps({
       font-family: 'Bebas Neue', cursive;
       font-family: 'Roboto', sans-serif;
       text-decoration: none;
-      color: white;
+      color: $white;
       font-size: 1rem;
       margin-left: 2rem;
       align-items: center;
