@@ -1,28 +1,12 @@
-import { defineStores } from "pinia";
+import { defineStore } from "pinia";
 import useApi from "../composables/api";
 
-export class User{
-    constructor(id, username, surname, forename, email, role) {
-        this.id = id,
-        this.username = username,
-        this.surname = surname,
-        this.forename = forename,
-        this.email = email,
-        this.role = role
-    };
-}
 
-export class State {
-    constructor(user) {
-        this.user = user
-    };
-}
-
-export const useAuthStore = defineStores('auth', {
+export const useAuthStore = defineStore('auth', {
     state: () => {
         return {
-            user: User,
-            accessToken: String,
+            user: {},
+            accessToken: "",
         };
     },
 
@@ -39,7 +23,7 @@ export const useAuthStore = defineStores('auth', {
                 return data;
             } catch (error) {
                 throw error.response.message;
-            }
+            };
         },
         async register(payload) {
             try {
@@ -47,7 +31,7 @@ export const useAuthStore = defineStores('auth', {
                 return data;
             } catch (error) {
                 throw error.response.message;
-            }
+            };
         },
         async getUser() {
             try {
@@ -56,7 +40,7 @@ export const useAuthStore = defineStores('auth', {
                 return data;
             } catch (error) {
                 throw error.response.message;
-            }
+            };
         },
         async logout() {
             try {
@@ -66,7 +50,7 @@ export const useAuthStore = defineStores('auth', {
                 return data;
             } catch (error) {
                 throw error.response.message;
-            }
+            };
         },
         async refreshToken() {
             try {
@@ -75,7 +59,7 @@ export const useAuthStore = defineStores('auth', {
                 return data;
             } catch (error) {
                 throw error.response.message;
-            }
+            };
         },
-    }
+    },
 });

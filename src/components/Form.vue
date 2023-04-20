@@ -1,5 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, reactive, watch } from 'vue';
+import { useAuthStore } from '../stores/auth';
+import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
+
 
 const props = defineProps({
   formType: {
@@ -8,20 +12,24 @@ const props = defineProps({
   }
 })
 
-const username = ref();
-const surname = ref();
-const forename = ref();
-const email = ref();
-const password = ref();
-const confPassword = ref();
-const role = ref();
+const authStore = useAuthStore();
+const router = useRouter();
+
+const state = reactive({
+    username: "",
+    surname: "",
+    forename: "",
+    email: "",
+    role: "",
+    password: "",
+    password_confirm: "",
+});
+
 const roles = ref([
     { title: 'Product Owner' },
     { title: 'Development Contributor' },
     { title: 'Scrum Master' },
 ]);
-
-// TODO: Change multiple ref declaration to the state below
 
 const title = computed(() => {
   return props.formType == 'sign-up' ? 'Get started!' : 'Log into your account!'
@@ -39,9 +47,49 @@ const subtitle = computed(() => {
     };
 })
 
+
 const btnText = computed(() => {
   return props.formType == 'sign-up' ? 'Sign up' : 'Log in'
 })
+
+const errorMessage = ref("");
+
+async function onSubmit() {
+    if (props.formType === "sign-up") {
+        const data = {
+            username: state.username,
+            surname: state.surname,
+            forename: state.forename,
+            email: state.email,
+            role: state.role.title,
+            password: state.password,
+            password_confirm: state.password_confirm,
+        };
+
+        await authStore.register(data)
+            .then(res => {
+                router.replace({name: "login"});
+            })
+            .catch(err => {
+                errorMessage.value = err.message;
+            });
+    }
+    else {
+        const data = {
+            email: state.email,
+            password: state.password,
+        };
+
+        await authStore.login(data)
+            .then(res => {
+                router.replace({name: "profile"});
+            })
+            .catch(err => {
+                errorMessage.value = err.message;
+            });
+    }
+}
+
 </script>
 
 <template>
@@ -54,41 +102,41 @@ const btnText = computed(() => {
                     </a> 
                 </template>
                 <template #content>
-                    <form @submit="onSubmit" class="flex flex-column fields">
+                    <form @submit.prevent="onSubmit" class="flex flex-column fields">
                         <div v-if="formType == 'sign-up'">
                             <div class="field-section">
                                 <p class="field-text">Username</p>
-                                <InputText type="text" v-model="username" />
+                                <InputText type="text" v-model="state.username" />
                             </div>
                             <div class="flex flex-row">
                                 <div class="flex flex-column field-section">
                                     <p class="field-text">Forename</p>
-                                    <InputText type="text" v-model="forename" />
+                                    <InputText type="text" v-model="state.forename" />
                                 </div>
                                 <div class="flex flex-column field-section">
                                     <p class="field-text">Surname</p>
-                                    <InputText type="text" v-model="surname" />
+                                    <InputText type="text" v-model="state.surname" />
                                 </div>
                             </div>
                             <div class="flex flex-column field-section">
                                 <p class="field-text">Role</p>
-                                <Dropdown v-model="role" :options="roles" showClear optionLabel="title" />
+                                <Dropdown v-model="state.role" :options="roles" showClear optionLabel="title" />
                             </div>
                             <div class="flex flex-column field-section">
                                 <p class="field-text">Email</p>
-                                <InputText type="text" v-model="email" />
+                                <InputText type="text" v-model="state.email" />
                             </div>
                             <div class="flex flex-row">
                                 <div class="flex flex-column field-section">
                                     <p class="field-text">Password</p>
                                     <div class="card flex justify-content-center">
-                                        <Password v-model="password" toggleMask />
+                                        <Password v-model="state.password" toggleMask />
                                     </div>
                                 </div>
                                 <div class="flex flex-column field-section">
                                     <p class="field-text">Confirm password</p>
                                     <div class="card flex justify-content-center">
-                                        <Password v-model="confPassword" toggleMask />
+                                        <Password v-model="state.password_confirm" toggleMask />
                                     </div>
                                 </div>
                             </div>
@@ -96,15 +144,15 @@ const btnText = computed(() => {
                         <div v-else>
                             <div class="flex flex-column field-section">
                                 <p class="field-text">Email</p>
-                                <InputText type="text" v-model="email" />
+                                <InputText type="text" v-model="state.email" />
                             </div>
                             <div class="flex flex-column field-section">
                                 <p class="field-text">Password</p>
-                                <Password v-model="password" toggleMask />
+                                <Password v-model="state.password" toggleMask />
                             </div>
                         </div>
                         <div class="flex field-section">
-                            <button class="form-btn shadow-2"> {{ btnText }} </button>
+                            <button type="submit" class="form-btn shadow-2"> {{ btnText }} </button>
                         </div>
                     </form>
                 </template>

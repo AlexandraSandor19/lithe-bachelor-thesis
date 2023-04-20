@@ -8,14 +8,12 @@
 </template>
 
 <style lang="scss" scoped>
-    /* 
-    TODO: Fix issue with Google Fonts
-    */ 
   .logo {
-    color: white;
-    margin-left: 5rem;
+    color: $white;
+    margin-left: 7rem;
     font-size: 2.6rem;
     letter-spacing: 4px;
-    font-family: $logo-font
+    font-family: $logo-font;
+    text-shadow: $ts-light-purple;
   }
 </style>

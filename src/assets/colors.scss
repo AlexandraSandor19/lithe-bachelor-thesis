@@ -8,12 +8,21 @@ $black-1: rgb(33, 33, 33);
 $black-2: rgb(52, 52, 52);
 $dark-grey: rgb(79, 79, 79);
 $grey: rgb(100, 100, 100);
+$yellow: #FFBD59;
 
 /* TEXT/BOX SHADOWS */
 
-$shadow1: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+$box-shadow1: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+$ts-light-purple: 0px 0px 13px rgba(195, 131, 221, 0.7);
+$ts-yellow: 0px 2px 12px rgba(255,189,89,0.7);
+$bs-yellow: -1px 1px 10px 0px rgba(255,189,89,0.7);
+$bs-yellow-light: -1px 1px 6px 0px rgba(255,189,89,0.6);
 
 /* FONTS */
 
 $pt-sans-font: 'PT Sans', sans-serif;
-$logo-font: 'Edu NSW ACT Foundation', cursive;
+$logo-font: 'Lora', serif;
+
+/* BACKGROUND IMAGE */
+
+$bcg-image-hp: url(./background.png);

@@ -14,6 +14,7 @@ import AvatarGroup from 'primevue/avatargroup';
 import Image from 'primevue/image';
 import Chip from 'primevue/chip';
 import VirtualScroller from 'primevue/virtualscroller';
+import Toast from 'primevue/toast';
 
 const bindPrimevueComponents = (app) => {
 app.use(PrimeVue, { ripple: true });
@@ -28,6 +29,7 @@ app.component('AvatarGroup', AvatarGroup);
 app.component('Image', Image);
 app.component('Chip', Chip);
 app.component('VirtualScroller', VirtualScroller);
+app.component('Toast', Toast);
 }
 
 

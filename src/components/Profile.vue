@@ -1,13 +1,15 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 
-const username = ref('johndoe');
-const surname = ref('Doe');
-const forename = ref('John');
-const email = ref('johndoe@gmail.com');
-const title = ref('Product Owner');
-const teams = ref(['Gamma', 'Charlie', 'Delta']);
-const projects = ref(['Marine Maps', 'Email Services', 'SSO Portal', 'Product Page']);
+const state = reactive({
+    username: "johndoe",
+    surname: "Doe",
+    forename: "John",
+    email: "johndoe@gmail.com",
+    title: "Product Owner",
+    teams: ['Gamma', 'Charlie', 'Delta'],
+    projects: ['Marine Maps', 'Email Services', 'SSO Portal', 'Product Page']
+});
 
 const fullname = computed(() => {
   return forename.value + ' ' + surname.value;
@@ -27,8 +29,8 @@ const adUsername = computed(() => {
                 <div class="image-section">
                     <img class='prf-image' src="https://primefaces.org/cdn/primevue/images/galleria/galleria7.jpg" alt="Image">
                     <div class="name-section">
-                        <span class="fullname">{{ fullname }}</span>
-                        <span class="username">{{ adUsername }}</span>
+                        <span class="fullname">{{ state.fullname }}</span>
+                        <span class="username">{{ state.adUsername }}</span>
                     </div>
                 </div>
                 <span class="info-label">
@@ -38,11 +40,11 @@ const adUsername = computed(() => {
                 <div class="container personal-details">
                     <div class="flex flex-row p-3 w-max">
                         <span class="detail-label">Title:</span>
-                        <span>{{ title }}</span>
+                        <span>{{ state.title }}</span>
                     </div>
                     <div class="flex flex-row p-3 w-max">
                         <span class="detail-label">Email:</span>
-                        <span>{{ email }}</span>
+                        <span>{{ state.email }}</span>
                     </div>
                 </div>
                 <span class="edit-btn">
@@ -60,14 +62,14 @@ const adUsername = computed(() => {
                             <span class="pi pi-angle-right mr-1"></span>
                             <span class="activity-label">Part of these teams..</span>
                         </span>
-                        <div v-if="teams.length <= 3" v-for="team in teams" class="activity-list">
+                        <div v-if="state.teams.length <= 3" v-for="team in state.teams" class="activity-list">
                             <Chip class="pl-0 pr-3 mt-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
                                 <span class="chip-circle border-circle w-2rem h-2rem flex align-items-center justify-content-center">{{ team.charAt(0) }}</span>
                                 <span class="chip-label">{{ team }}</span>
                             </Chip>   
                         </div>
                         <div v-else>
-                            <div v-for="team in teams.slice(0,3)" class="activity-list">
+                            <div v-for="team in state.teams.slice(0,3)" class="activity-list">
                                 <Chip class="pl-0 pr-3 mt-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
                                     <span class="chip-circle border-circle w-2rem h-2rem flex align-items-center justify-content-center">{{ team.charAt(0) }}</span>
                                     <span class="chip-label">{{ team }}</span>
@@ -80,14 +82,14 @@ const adUsername = computed(() => {
                             <span class="pi pi-angle-right mr-1"></span>
                             <span class="activity-label">Contributed to these projects..</span>
                         </span>
-                        <div v-if="projects.length <= 3" v-for="project in projects" class="activity-list">
+                        <div v-if="state.projects.length <= 3" v-for="project in state.projects" class="activity-list">
                             <Chip class="pl-0 pr-3 mt-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
                                 <span class="chip-circle border-circle w-2rem h-2rem flex align-items-center justify-content-center">{{ project.charAt(0) }}</span>
                                 <span class="chip-label">{{ project }}</span>
                             </Chip>   
                         </div>
                         <div v-else class="flex flex-column">
-                            <div v-for="project in projects.slice(0,3)" class="activity-list">
+                            <div v-for="project in state.projects.slice(0,3)" class="activity-list">
                                 <Chip class="pl-0 pr-3 mt-3" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px">
                                     <span class="chip-circle border-circle w-2rem h-2rem flex align-items-center justify-content-center">{{ project.charAt(0) }}</span>
                                     <span class="chip-label">{{ project }}</span>
@@ -133,7 +135,7 @@ const adUsername = computed(() => {
         width: 14rem;
         height: 14rem;
         border-radius: 50%;
-        box-shadow: $shadow1;
+        box-shadow: $box-shadow1;
     }
 
     .info-label {

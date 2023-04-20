@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt');
 
 
 async function register(req, res) {
-    const { username, forename, surname, role, email, password, confPassword} = req.body;
+    const { username, forename, surname, role, email, password, password_confirm} = req.body;
 
-    if (!username || !forename || !surname || !role || !email || !password || !confPassword) {
+    if (!username || !forename || !surname || !role || !email || !password || !password_confirm) {
         return res.status(422).json({'message': 'Invalid fields!'});
     }
     if (password !== confPassword) {
