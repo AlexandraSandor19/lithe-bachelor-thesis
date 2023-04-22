@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import useApi from "../composables/api";
+import { useApi, useApiPrivate } from "../composables/api";
 
 
 export const useAuthStore = defineStore('auth', {
@@ -7,59 +7,76 @@ export const useAuthStore = defineStore('auth', {
         return {
             user: {},
             accessToken: "",
+            authReady: false,
         };
     },
 
     getters: {
-        user: state => state.user,
-        isAuthenticated: state => state.user?.id ? true : false,
+        userData: state => state.user,
+        isAuthenticated: state => state.accessToken ? true : false,
     },
 
     actions: {
+        async attemptForUser() {
+            try {
+                await this.refreshToken();
+                await this.getUser();
+            } catch (error) {
+                return;
+            }
+
+            return;
+        },
+
         async login(payload) {
             try {
-                const {data} = await useApi.post(`/api/auth/login`, payload);
-                this.accessToken = data?.access_token;
+                const {data} = await useApi().post(`/api/auth/login`, payload);
+                this.accessToken = data.access_token;
+                await this.getUser();
                 return data;
             } catch (error) {
-                throw error.response.message;
+                throw error.message;
             };
         },
+
         async register(payload) {
             try {
-                const {data} = await useApi.post(`/api/auth/register`, payload);
+                const {data} = await useApi().post(`/api/auth/register`, payload);
                 return data;
             } catch (error) {
-                throw error.response.message;
-            };
+                throw error.message;
+            }
         },
+
         async getUser() {
             try {
-                const {data} = await useApi.get(`/api/auth/user`);
+                const {data} = await useApiPrivate().get(`/api/auth/user`);
                 this.user = data;
                 return data;
             } catch (error) {
-                throw error.response.message;
-            };
+                throw error.message;
+            }
         },
+
         async logout() {
             try {
-                const {data} = await useApi.post(`/api/auth/logout`);
+                const {data} = await useApiPrivate().post(`/api/auth/logout`);
                 this.accessToken = "";
                 this.user = {};
                 return data;
             } catch (error) {
-                throw error.response.message;
-            };
+                throw error.message;
+            }
         },
+
         async refreshToken() {
             try {
-                const {data} = await useApi.post(`/api/auth/logout`);
+                const {data} = await useApi().post(`/api/auth/refresh`);
                 this.accessToken = data?.access_token;
                 return data;
             } catch (error) {
-                throw error.response.message;
-            };
+                throw error.message;
+            }
         },
     },
 });

@@ -2,8 +2,6 @@
 import { ref, computed, reactive, watch } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
-import { useToast } from "primevue/usetoast";
-
 
 const props = defineProps({
   formType: {
@@ -68,7 +66,7 @@ async function onSubmit() {
 
         await authStore.register(data)
             .then(res => {
-                router.replace({name: "login"});
+                router.replace({ name: "login" });
             })
             .catch(err => {
                 errorMessage.value = err.message;
@@ -82,7 +80,7 @@ async function onSubmit() {
 
         await authStore.login(data)
             .then(res => {
-                router.replace({name: "profile"});
+                router.replace({ name: "profile" });
             })
             .catch(err => {
                 errorMessage.value = err.message;

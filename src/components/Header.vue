@@ -1,24 +1,54 @@
 <script setup>
 import Logo from './Logo.vue'
+import { computed, onMounted } from 'vue';
+import { useAuthStore } from '../stores/auth';
+import { useRouter } from 'vue-router';
 
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
+const authStore = useAuthStore();
+const router = useRouter();
+
+const user = computed(() => {
+  return authStore.userData;
+});
+
+const isAuthenticated = computed(() => {
+  return authStore.isAuthenticated;
+});
+
+async function logout() {
+  await authStore.logout()
+    .then(res => {
+      router.replace({ name: 'home'});
+    })
+    .catch(err => {
+      console.log(err.message);
+    })
+}
+
 </script>
 
 <template>
   <div class="header">
     <Logo />
-    <div class="tabs">
+    <div v-if="!isAuthenticated" class="tabs">
       <a href="/">Contact</a>
       <a href="/">About Scrum</a>
       <a href="/">Features</a>
       <a href="/log-in">
         <span>
           Log in
+        </span>
+      </a>
+    </div>
+    <div v-else class="tabs">
+      <a>
+        <span>
+          {{ user.username }}
+        </span>
+      </a>
+      <a @click="logout">
+        <span>
+          Log out
         </span>
       </a>
     </div>
@@ -31,9 +61,9 @@ defineProps({
     justify-content: space-between;
     align-items: center;
     height: 5rem;
-    position: fixed; /* Set the navbar to fixed position */
+    position: fixed;
     width: 100%;
-    top: 0; /* Position the navbar at the top of the page */
+    top: 0;
     background-color: $bcg-purple-pure;
     -moz-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     -webkit-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;

@@ -9,7 +9,7 @@ async function register(req, res) {
     if (!username || !forename || !surname || !role || !email || !password || !password_confirm) {
         return res.status(422).json({'message': 'Invalid fields!'});
     }
-    if (password !== confPassword) {
+    if (password !== password_confirm) {
         return res.status(422).json({'message': 'Passwords do not match!'});
     }
 
@@ -73,7 +73,7 @@ async function login(req, res) {
 
     user.refresh_token = refreshToken;
     await user.save();
-    res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 24*60*60*1000 });
+    res.cookie('refresh_token', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24*60*60*1000 });
     res.json({access_token: accessToken});
 }
 
@@ -88,14 +88,14 @@ async function logout(req, res) {
     const user = await User.findOne({ refresh_token: refreshToken }).exec();
 
     if(!user) {
-        res.clearCookie('refresh_token', { httpOnly: true });
+        res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'None', secure: true });
         return res.sendStatus(204);
     }
 
     user.refresh_token = null;
     await user.save()
 
-    res.clearCookie('refresh_token', { httpOnly: true });
+    res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'None', secure: true });
     res.sendStatus(200);
 }
 
@@ -129,6 +129,7 @@ async function refresh(req, res) {
 
 async function user(req, res) {
     const user = req.user;
+    
     return res.status(200).json(user);
 }
 

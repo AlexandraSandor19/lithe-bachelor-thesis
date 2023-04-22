@@ -1,36 +1,46 @@
 <script setup>
-import { ref, computed, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
+import { useAuthStore } from '../stores/auth';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+const user = computed(() => {
+    return authStore.userData;
+});
 
 const state = reactive({
-    username: "johndoe",
-    surname: "Doe",
-    forename: "John",
-    email: "johndoe@gmail.com",
-    title: "Product Owner",
     teams: ['Gamma', 'Charlie', 'Delta'],
     projects: ['Marine Maps', 'Email Services', 'SSO Portal', 'Product Page']
 });
 
-const fullname = computed(() => {
-  return forename.value + ' ' + surname.value;
+const adUsername = computed(() => {
+  return `@${ authStore.userData.username }`;
+});
+
+async function getUser() {
+    await authStore.getUser();
+}
+
+onMounted(async () => {
+    await getUser();
 })
 
-const adUsername = computed(() => {
-  return `@${username.value}`;
-})
+
 </script>
 
 <template>
     <div class="prf-section">
         <span class="prf-label">Personal profile</span>
         <Divider type="solid" class="m-2"/>
-        <div class="flex flex-row h-9">
+        <div v-if="user" class="flex flex-row h-9">
             <div class="flex flex-column w-max mr-5">
                 <div class="image-section">
                     <img class='prf-image' src="https://primefaces.org/cdn/primevue/images/galleria/galleria7.jpg" alt="Image">
                     <div class="name-section">
-                        <span class="fullname">{{ state.fullname }}</span>
-                        <span class="username">{{ state.adUsername }}</span>
+                        <span class="fullname">{{ user.fullName }}</span>
+                        <span class="username">{{ adUsername }}</span>
                     </div>
                 </div>
                 <span class="info-label">
@@ -40,11 +50,11 @@ const adUsername = computed(() => {
                 <div class="container personal-details">
                     <div class="flex flex-row p-3 w-max">
                         <span class="detail-label">Title:</span>
-                        <span>{{ state.title }}</span>
+                        <span>{{ user.role }}</span>
                     </div>
                     <div class="flex flex-row p-3 w-max">
                         <span class="detail-label">Email:</span>
-                        <span>{{ state.email }}</span>
+                        <span>{{ user.email }}</span>
                     </div>
                 </div>
                 <span class="edit-btn">
