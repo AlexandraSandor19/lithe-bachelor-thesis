@@ -68,6 +68,7 @@ async function logout() {
     -moz-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     -webkit-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
+    z-index: 1;
    }
 
   .tabs {

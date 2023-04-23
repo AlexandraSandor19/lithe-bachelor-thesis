@@ -16,6 +16,7 @@ coverage
 
 *.env
 server/.env
+start.sh
 
 /cypress/videos/
 /cypress/screenshots/
