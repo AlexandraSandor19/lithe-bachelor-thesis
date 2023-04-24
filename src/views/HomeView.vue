@@ -1,23 +1,44 @@
 <script setup>
+import { computed } from 'vue';
 import Header from '../components/Header.vue'
+import { useAuthStore } from '../stores/auth';
+
+const authStore = useAuthStore();
+
+const user = computed(() => {
+  return authStore.userData;
+});
+
+const isAuthenticated = computed(() => {
+  return authStore.isAuthenticated;
+});
 </script>
 
 <template>
   <main>
     <Header />
-    <div class="main-section">
-      <div class="text-section">
-        <span class="hero-text --main">Something meaningful about teamwork.</span>
-        <span class="hero-text --second">This text is about how cool this is.</span>
-        <span class="hero-text --get-started">Get started with 
-          <span class="lithe">Lithe</span>!
-        </span>
-        <a class="sign-up" href="/sign-up">Sign Up</a>
+    <div v-if="!isAuthenticated" id="landing-page">
+      <div class="main-section">
+        <div class="text-section">
+          <span class="hero-text --main">Something meaningful about teamwork.</span>
+          <span class="hero-text --second">This text is about how cool this is.</span>
+          <span class="hero-text --get-started">Get started with 
+            <span class="lithe">Lithe</span>!
+          </span>
+          <a class="sign-up" href="/sign-up">Sign Up</a>
+        </div>
+      </div>
+      <div class="features-section">
+        <div class="features-title">
+          Manage tasks and projects easily
+        </div>
       </div>
     </div>
-    <div class="features-section">
-      <div class="features-title">
-        Manage tasks and projects easily
+    <div v-else>
+      <div class="main-section--auth">
+        <div class="text-section">
+          <span class="hero-text --main --auth">Welcome back, {{ user.forename }}!</span>
+        </div>
       </div>
     </div>
   </main>
@@ -31,7 +52,12 @@ import Header from '../components/Header.vue'
   .main-section {
     background: url("../assets/background.png") no-repeat center fixed;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+  }
+
+  .main-section--auth {
+    background-color: $whiteish;
+    min-height: 100vh;
   }
 
   .text-section {
@@ -57,6 +83,10 @@ import Header from '../components/Header.vue'
     &.--get-started {
       font-size: 2rem;
       margin-top: 3rem;
+    }
+
+    &.--auth {
+      color: $bcg-purple-pure;
     }
   }
 

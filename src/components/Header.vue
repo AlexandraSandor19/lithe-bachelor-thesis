@@ -1,6 +1,6 @@
 <script setup>
 import Logo from './Logo.vue'
-import { computed, onMounted } from 'vue';
+import { computed, ref } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
 
@@ -25,6 +25,26 @@ async function logout() {
     })
 }
 
+const menu = ref();
+
+const items = ref([
+    { separator: true },
+    { 
+      label: 'Profile', 
+      icon: 'pi pi-fw pi-user', 
+      to: '/profile',
+    },
+    { 
+      label: 'Log Out', 
+      icon: 'pi pi-sign-out',
+      command: async () => await logout() 
+    },
+]);
+
+const toggle = (event) => {
+    menu.value.toggle(event);
+};
+
 </script>
 
 <template>
@@ -41,16 +61,23 @@ async function logout() {
       </a>
     </div>
     <div v-else class="tabs">
-      <a>
-        <span>
-          {{ user.username }}
-        </span>
-      </a>
-      <a @click="logout">
-        <span>
-          Log out
-        </span>
-      </a>
+        <router-link to="/">
+          <span class="pi pi-fw pi-home header-icon"></span>
+        </router-link>
+        <button class="user-btn" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
+            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="mr-5" shape="circle" />
+            <span class="pi pi-chevron-down"></span>
+        </button>
+        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" style="width: fit-content; font-size: 0.9rem;">
+          <template #start>
+            <div class="menu-name">
+              Logged in as 
+              <span style="font-weight: 500;">
+                {{ user.fullName }}
+              </span>
+            </div>
+          </template>
+        </Menu>
     </div>
   </div>
 </template>
@@ -60,7 +87,7 @@ async function logout() {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 5rem;
+    height: 4.5rem;
     position: fixed;
     width: 100%;
     top: 0;
@@ -74,7 +101,7 @@ async function logout() {
   .tabs {
     display: flex;
     align-items: center;
-    margin-right: 7rem;
+    margin-right: 4rem;
 
     a {
       font-family: $logo-font;
@@ -99,5 +126,28 @@ async function logout() {
         }
       }
     }
+  }
+
+  .user-btn {
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    border: 2px solid transparent;
+    font-size: 1.2rem;
+    color: $white;
+    cursor: pointer;
+  }
+
+  .header-icon {
+    color: $white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 1.4rem;
+  }
+
+  .menu-name {
+    margin: 0.5rem 1.2rem;
   }
 </style>

@@ -15,7 +15,7 @@ import Header from '../components/Header.vue';
 <style lang="scss" scoped>
     .profile {
     display: flex;
-    background: $bcg-purple-gradient;
+    background-color: $whiteish;
     min-height: 100vh;
     height: fit-content;
     width: 100%;

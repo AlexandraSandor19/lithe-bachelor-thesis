@@ -80,7 +80,7 @@ async function onSubmit() {
 
         await authStore.login(data)
             .then(res => {
-                router.replace({ name: "profile" });
+                router.replace({ name: "home" });
             })
             .catch(err => {
                 errorMessage.value = err.message;

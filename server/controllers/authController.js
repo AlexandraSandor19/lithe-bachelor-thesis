@@ -133,4 +133,15 @@ async function user(req, res) {
     return res.status(200).json(user);
 }
 
-module.exports = { register, login, logout, refresh, user };
+async function getUserById(req, res) {
+    const id = req.params.id;
+
+    const user = await User.findById(id).exec();
+    if (!user) {
+        return res.sendStatus(404);
+    }
+    
+    return res.status(200).json(user);
+}
+
+module.exports = { register, login, logout, refresh, user, getUserById };

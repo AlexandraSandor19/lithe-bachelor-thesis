@@ -10,7 +10,7 @@
 <style lang="scss" scoped>
   .logo {
     color: $white;
-    margin-left: 7rem;
+    margin-left: 4rem;
     font-size: 2.6rem;
     letter-spacing: 4px;
     font-family: $logo-font;

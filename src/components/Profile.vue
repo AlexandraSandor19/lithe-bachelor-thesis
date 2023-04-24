@@ -116,7 +116,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 
     .prf-section {
-        margin: 7rem 2rem;
+        margin: 5.2rem 2rem;
         display: flex;
         flex-direction: column;
         font-family: $pt-sans-font;
@@ -126,7 +126,9 @@ onMounted(async () => {
         padding-bottom: 0rem;
         background-color: $white;
         border-radius: 3px;
+        border: 1px solid $light-grey;
         z-index: 0;
+        box-shadow: $box-shadow1;
     }
 
     .prf-label {
