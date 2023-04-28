@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue';
 import LogInView from '../views/LogInView.vue';
 import SignUpView from '../views/SignUpView.vue';
 import ProfileView from '../views/ProfileView.vue';
+import ProjectView from '../views/ProjectView.vue';
+import IssueView from '../views/IssueView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,7 +32,17 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
       meta: {requiresAuth: true}
-    }
+    },
+    {
+      path: '/project',
+      name: 'project',
+      component: ProjectView
+    },
+    {
+      path: '/issue',
+      name: 'issue',
+      component: IssueView
+    },
   ]
 });
 

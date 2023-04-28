@@ -13,6 +13,4 @@ router.post('/refresh', authControllers.refresh);
 
 router.get('/user', authMiddleware, authControllers.user);
 
-router.get('/user/:id', authControllers.getUserById);
-
 module.exports = router;

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, reactive, watch } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
 

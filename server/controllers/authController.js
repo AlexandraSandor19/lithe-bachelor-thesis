@@ -96,7 +96,7 @@ async function logout(req, res) {
     await user.save()
 
     res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'None', secure: true });
-    res.sendStatus(200);
+    return res.sendStatus(200);
 }
 
 async function refresh(req, res) {
@@ -133,15 +133,4 @@ async function user(req, res) {
     return res.status(200).json(user);
 }
 
-async function getUserById(req, res) {
-    const id = req.params.id;
-
-    const user = await User.findById(id).exec();
-    if (!user) {
-        return res.sendStatus(404);
-    }
-    
-    return res.status(200).json(user);
-}
-
-module.exports = { register, login, logout, refresh, user, getUserById };
+module.exports = { register, login, logout, refresh, user };

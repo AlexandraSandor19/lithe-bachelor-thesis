@@ -1,9 +1,11 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import Header from '../components/Header.vue'
 import { useAuthStore } from '../stores/auth';
 
 const authStore = useAuthStore();
+
+const visible = ref(false);
 
 const user = computed(() => {
   return authStore.userData;
@@ -37,7 +39,7 @@ const isAuthenticated = computed(() => {
     <div v-else>
       <div class="main-section--auth">
         <div class="text-section">
-          <span class="hero-text --main --auth">Welcome back, {{ user.forename }}!</span>
+          <span class="hero-text --main">Welcome back, {{ user.forename }}!</span>
         </div>
       </div>
     </div>
@@ -50,7 +52,7 @@ const isAuthenticated = computed(() => {
   }
 
   .main-section {
-    background: url("../assets/background.png") no-repeat center fixed;
+    background-color: $whiteish;
     background-size: cover;
     min-height: 100vh;
   }
@@ -68,7 +70,7 @@ const isAuthenticated = computed(() => {
   }
 
   .hero-text {
-    color: $white;
+    color: $bcg-purple-pure;
     margin: 1rem 0 0.5rem 0;
 
     &.--main {
@@ -83,10 +85,6 @@ const isAuthenticated = computed(() => {
     &.--get-started {
       font-size: 2rem;
       margin-top: 3rem;
-    }
-
-    &.--auth {
-      color: $bcg-purple-pure;
     }
   }
 

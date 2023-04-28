@@ -42,6 +42,7 @@ app.use(errorHandlerMiddleware);
 
 // Routes
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('api/user', require('./routes/api/user'));
 
 app.all('*', (req, res) => {
     res.sendStatus(404);

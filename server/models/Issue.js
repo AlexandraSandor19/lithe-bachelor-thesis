@@ -17,6 +17,7 @@ const IssueSchema = Schema(
             required: true
         },
         story_points: Number,
+        priority: String,
         labels: [String],
         asignee_id: String,
         goal: {
