@@ -34,14 +34,16 @@ const router = createRouter({
       meta: {requiresAuth: true}
     },
     {
-      path: '/project',
+      path: '/projects',
       name: 'project',
-      component: ProjectView
+      component: ProjectView,
+      meta: {requiresAuth: true}
     },
     {
-      path: '/issue',
+      path: '/issues',
       name: 'issue',
-      component: IssueView
+      component: IssueView,
+      meta: {requiresAuth: true}
     },
   ]
 });

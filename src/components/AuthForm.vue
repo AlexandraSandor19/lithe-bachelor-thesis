@@ -165,20 +165,22 @@ async function onSubmit() {
     }
 
     :deep(.p-card) {
-        padding: 0.7rem 2rem;
+        padding: 1rem 2.5rem;
+        font-family: $pt-sans-font;
     }
 
     :deep(.p-card-title) {
         display: flex;
         justify-content: center;
-        color: #8A6196;
+        color: $bcg-purple-pure;
         font-size: 2.5rem;
     }
 
     :deep(.p-card-subtitle) {
         display: flex;
         justify-content: center;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
     }
 
     :deep(.p-card-content) {
@@ -199,7 +201,7 @@ async function onSubmit() {
         }
 
         &:deep(.field-text) {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             margin-bottom: 0.2rem;
         }
     }
@@ -209,8 +211,8 @@ async function onSubmit() {
         margin-top: 1.5rem; 
         width: 100%;
         font-size: 0.9rem;
-        background-color: #8A6196;
-        border: 2px solid #8A6196;
+        background-color: $bcg-purple-pure;
+        border: 2px solid $bcg-purple-pure;
         border-radius: 0.2rem;
         color: $white;
         align-self: center;

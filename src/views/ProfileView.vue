@@ -1,25 +1,32 @@
 <script setup>
 import Profile from '../components/Profile.vue';
 import Header from '../components/Header.vue';
+import Sidebar from '../components/Sidebar.vue';
 </script>
 
 <template>
   <main>
     <Header />
-    <div class="profile">
-      <Profile />
+    <div class="flex flex-row">
+      <Sidebar />
+      <div class="profile">
+        <Profile />
+      </div>
     </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
-    .profile {
-    display: flex;
+  main {
+    margin: 0;
     background-color: $whiteish;
     min-height: 100vh;
-    height: fit-content;
+  }  
+
+    .profile {
+    display: flex;
+    margin-left: 17rem;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
     }
 </style>

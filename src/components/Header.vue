@@ -88,10 +88,10 @@ const toggle = (event) => {
     justify-content: space-between;
     align-items: center;
     height: 4.5rem;
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 0;
-    background-color: $bcg-purple-pure;
+    background-color: $white;
     -moz-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     -webkit-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
     box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
@@ -106,8 +106,8 @@ const toggle = (event) => {
     a {
       font-family: $logo-font;
       text-decoration: none;
-      color: $white;
-      font-size: 0.9rem;
+      color: $bcg-purple-pure;
+      font-size: 0.95rem;
       margin-left: 2.5rem;
       align-items: center;
       letter-spacing: .1rem;
@@ -136,15 +136,16 @@ const toggle = (event) => {
     align-items: center;
     border: 2px solid transparent;
     font-size: 1.2rem;
-    color: $white;
+    color: $grey;
     cursor: pointer;
   }
 
   .header-icon {
-    color: $white;
-    font-size: 1.5rem;
+    color: $grey;
+    font-size: 1.4rem;
     cursor: pointer;
-    margin-right: 1.4rem;
+    margin-right: 1rem;
+    margin-top: 5px;
   }
 
   .menu-name {

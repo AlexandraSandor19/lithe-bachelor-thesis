@@ -2,18 +2,28 @@
 </script>
 
 <template>
-  <span class="logo">
-    lithe
+  <span class="container">
+    <img class="logo" src="../assets/logo-pic.png" alt="">
+    <span class="text">lithe</span>
   </span>
 </template>
 
 <style lang="scss" scoped>
-  .logo {
-    color: $white;
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-left: 4rem;
-    font-size: 2.6rem;
-    letter-spacing: 4px;
-    font-family: $logo-font;
-    text-shadow: $ts-light-purple;
+
+    .logo {
+      width: 8%;
+    }
+  
+    .text {
+      font-family: $logo-font;
+      font-size: 2rem;
+      color: $bcg-purple-pure;
+      margin-left: 5px;
+    }
   }
 </style>

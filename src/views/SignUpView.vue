@@ -13,8 +13,7 @@ import Form from '../components/AuthForm.vue';
 <style lang="scss" scoped>
 .form {
   display: flex;
-  background: rgb(94,55,109);
-  background: $bcg-purple-gradient;
+  background: $whiteish;
   min-height: 100vh;
   justify-content: center;
   align-items: center;

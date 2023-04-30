@@ -23,7 +23,7 @@ function authentication(req, res, next) {
         })
     } else {
         req.user = {};
-        res.end();
+        next();
     }
 }
 

@@ -62,7 +62,7 @@ onMounted(async () => {
                     Update profile
                 </span>   
             </div>
-            <div class="flex flex-column w-full mt-2">
+            <div class="flex flex-column w-full mt-2 ml-4">
                 <span class="info-label">
                     <span class="pi pi-chart-bar mr-2" style="font-size: 0.9rem"></span>
                     Activity
@@ -116,24 +116,24 @@ onMounted(async () => {
 <style lang="scss" scoped>
 
     .prf-section {
-        margin: 5.2rem 2rem;
+        margin: 1.5rem 2rem 0rem 2rem;
         display: flex;
         flex-direction: column;
         font-family: $pt-sans-font;
         padding: 1.3rem 3.2rem;
-        min-width: 60rem;
-        min-height: 40rem;
+        height: fit-content;
+        min-height: calc(100vh - 7.5rem);
+        width: 100%;
         padding-bottom: 0rem;
         background-color: $white;
-        border-radius: 3px;
-        border: 1px solid $light-grey;
+        border-radius: 5px;
         z-index: 0;
         box-shadow: $box-shadow1;
     }
 
     .prf-label {
         color: $dark-grey;
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
 
     .image-section {
@@ -202,8 +202,8 @@ onMounted(async () => {
     .activity-section {
         display: flex;
         flex-direction: column;
-        width: 100%;
         height: 100%;
+        width: 100%;
         padding: 1rem 1.7rem;
     }
 
@@ -243,10 +243,10 @@ onMounted(async () => {
         color: $grey;
         cursor: pointer;
         font-size: 0.9rem;
-        border: 2px solid #AB80B4;
+        border: 1.7px solid #AB80B4;
         width: fit-content;
         padding: 0.7rem 0.8rem;
-        border-radius: 10px;
+        border-radius: 5px;
         margin-top: 0.9rem;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }

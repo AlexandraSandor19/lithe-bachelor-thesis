@@ -1,11 +1,10 @@
 <script setup>
 import { computed, ref } from 'vue';
 import Header from '../components/Header.vue'
+import Sidebar from '../components/Sidebar.vue';
 import { useAuthStore } from '../stores/auth';
 
 const authStore = useAuthStore();
-
-const visible = ref(false);
 
 const user = computed(() => {
   return authStore.userData;
@@ -38,6 +37,7 @@ const isAuthenticated = computed(() => {
     </div>
     <div v-else>
       <div class="main-section--auth">
+        <Sidebar />
         <div class="text-section">
           <span class="hero-text --main">Welcome back, {{ user.forename }}!</span>
         </div>
@@ -49,24 +49,34 @@ const isAuthenticated = computed(() => {
 <style lang="scss" scoped>
   main {
     font-family: $logo-font;
+    min-height: 100vh;
+    background-color: $whiteish;
   }
 
   .main-section {
-    background-color: $whiteish;
     background-size: cover;
-    min-height: 100vh;
-  }
-
-  .main-section--auth {
-    background-color: $whiteish;
     min-height: 100vh;
   }
 
   .text-section {
     display: flex;
     flex-direction: column;
-    padding: 9.5rem 0rem 0rem 7rem;
+    padding: 1rem 0rem 0rem 2rem;
     letter-spacing: .1rem;
+    margin: 2rem 0 0 4rem;
+  }
+
+  .main-section--auth {
+    background-color: $whiteish;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .text-section {
+      margin: 2rem 0 0 17rem;
+    }
   }
 
   .hero-text {
