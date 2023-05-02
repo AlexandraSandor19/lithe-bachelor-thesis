@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const User = require('./models/User');
 const express = require("express");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -42,13 +43,11 @@ app.use(errorHandlerMiddleware);
 
 // Routes
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('api/user', require('./routes/api/user'));
+app.use('/data', require('./routes/api/getters'));
 
 app.all('*', (req, res) => {
-    res.sendStatus(404);
-
     if (req.accepts('json')) {
-        res.json({'error': '404 Not Found'});
+        res.status(404).json({'error': '404 Not Found'});
     }
     else {
         res.type('text').send('404 Not Found');
