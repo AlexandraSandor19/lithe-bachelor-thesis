@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
                 await this.getUser();
                 return data;
             } catch (error) {
-                throw error.message;
+                throw error.response.data;
             };
         },
 
@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', {
                 const {data} = await useApi().post(`/api/auth/register`, payload);
                 return data;
             } catch (error) {
-                throw error.message;
+                throw error.response.data;
             }
         },
 
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
                 this.user = data;
                 return data;
             } catch (error) {
-                throw error.message;
+                throw error.response.data;
             }
         },
 
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore('auth', {
                 this.user = {};
                 return data;
             } catch (error) {
-                throw error.message;
+                throw error.response.data;
             }
         },
 
@@ -75,7 +75,7 @@ export const useAuthStore = defineStore('auth', {
                 this.accessToken = data?.access_token;
                 return data;
             } catch (error) {
-                throw error.message;
+                throw error.response.data;
             }
         },
     },

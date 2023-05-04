@@ -3,6 +3,7 @@ import Header from '../components/Header.vue'
 import { useIssueStore } from '../stores/issue';
 import IssueForm from '../components/IssueForm.vue';
 import Sidebar from '../components/Sidebar.vue';
+import DraggableCard from '../components/DraggableCard.vue';
 
 const issueStore = useIssueStore();
 
@@ -15,6 +16,7 @@ const issueStore = useIssueStore();
       <Sidebar />
       <div class="page-content">
         <Button label="Show" icon="pi pi-external-link" @click="issueStore.openIssueModal" />
+        <DraggableCard />
       </div> 
     </div>
     <IssueForm />

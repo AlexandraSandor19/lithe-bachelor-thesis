@@ -2,13 +2,16 @@
 import { ref, computed, reactive } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 
 const props = defineProps({
   formType: {
     type: String,
     required: true
   }
-})
+});
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -51,6 +54,7 @@ const btnText = computed(() => {
 })
 
 const errorMessage = ref("");
+const errorSummary = ref("");
 
 async function onSubmit() {
     if (props.formType === "sign-up") {
@@ -70,6 +74,8 @@ async function onSubmit() {
             })
             .catch(err => {
                 errorMessage.value = err.message;
+                errorSummary.value = "Register Failed";
+                showError();
             });
     }
     else {
@@ -83,10 +89,17 @@ async function onSubmit() {
                 router.replace({ name: "home" });
             })
             .catch(err => {
+                console.log(err);
                 errorMessage.value = err.message;
+                errorSummary.value = "Login Failed";
+                showError();
             });
     }
 }
+
+const showError = () => {
+    toast.add({ severity: 'error', summary: errorSummary.value, detail: errorMessage.value, life: 3000 });
+};
 
 </script>
 
@@ -155,7 +168,8 @@ async function onSubmit() {
                     </form>
                 </template>
             </Card>
-        </div> 
+        </div>
+        <Toast /> 
 </template>
 
 <style lang="scss" scoped>

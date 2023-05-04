@@ -7,15 +7,20 @@ async function register(req, res) {
     const { username, forename, surname, role, email, password, password_confirm} = req.body;
 
     if (!username || !forename || !surname || !role || !email || !password || !password_confirm) {
-        return res.status(422).json({'message': 'Invalid fields!'});
-    }
-    if (password !== password_confirm) {
-        return res.status(422).json({'message': 'Passwords do not match!'});
+        return res.status(422).json({'message': 'Some required fields have not been completed!\nPlease fill in all the fields.'});
     }
 
     const userExists = await User.exists({email});
     if (userExists) {
-        return res.sendStatus(409);
+        return res.status(409).json({'message': 'The email address is already in use!\nPlease use a different email address.'});
+    }
+    
+    if (password !== password_confirm) {
+        return res.status(422).json({'message': 'The passwords do not match!'});
+    }
+
+    if (password.length < 7) {
+        return res.status(422).json({'message': 'The chosen password is too short!\nPlease use a password that has at least 7 characters.'});
     }
 
     try {
@@ -38,17 +43,17 @@ async function login(req, res) {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(422).json({'message': 'Invalid fields!'});
+        return res.status(422).json({'message': 'The email and/or password fields have not been completed!'});
     }
 
     const user =  await User.findOne({email}).exec();
     if (!user) {
-        return res.status(401).json({'message': 'User not found!'});;
+        return res.status(401).json({'message': 'The email address in invalid!'});;
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-        return res.status(401).json({'message': 'Email and password do not match!'});
+        return res.status(401).json({'message': 'The email and password do not match!'});
     }
 
     const accessToken = jwt.sign(
