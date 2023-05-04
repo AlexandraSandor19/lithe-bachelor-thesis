@@ -133,5 +133,20 @@ async function user(req, res) {
     return res.status(200).json(user);
 }
 
+async function getUserById(req, res) {
+    const idParam = req.params.user_id;
+    // TODO: CHaNGE TO EMAIL
+    try {
+        const user = await User.findById(idParam).exec();
+        if (user) {
+            return res.status(200).json(user);
+        }
+        return res.sendStatus(404);
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
+}
 
-module.exports = { register, login, logout, refresh, user };
+
+module.exports = { register, login, logout, refresh, user, getUserById };

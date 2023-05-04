@@ -43,7 +43,6 @@ app.use(errorHandlerMiddleware);
 
 // Routes
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/data', require('./routes/api/getters'));
 
 app.all('*', (req, res) => {
     if (req.accepts('json')) {
@@ -55,6 +54,7 @@ app.all('*', (req, res) => {
 })
 
 mongoose.connection.once('open', () => {
-    console.log('DB connected!');
-    app.listen(PORT, () => console.log(`Listening on port ${PORT}.`));
+    app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}.`);
+    });
 })
