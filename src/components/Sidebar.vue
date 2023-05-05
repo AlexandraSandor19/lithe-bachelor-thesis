@@ -34,7 +34,7 @@ const user = computed(() => {
                     <span class="pi pi-bookmark"></span>
                     Issues
                 </a>
-                <a class="menu-item">
+                <a href="/board" class="menu-item">
                     <span class="pi pi-th-large"></span>
                     Boards
                 </a>

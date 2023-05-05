@@ -1,11 +1,7 @@
 <script setup>
 import Header from '../components/Header.vue'
-import { useIssueStore } from '../stores/issue';
-import IssueForm from '../components/IssueForm.vue';
 import Sidebar from '../components/Sidebar.vue';
-
-const issueStore = useIssueStore();
-
+import Board from '../components/Board.vue';
 </script>
 
 <template>
@@ -14,10 +10,10 @@ const issueStore = useIssueStore();
     <div class="flex flex-row">
       <Sidebar />
       <div class="page-content">
-        <Button label="Show" icon="pi pi-external-link" @click="issueStore.openIssueModal" />
+        <Board />
       </div> 
     </div>
-    <IssueForm />
+    <ProjectForm />
   </main>
 </template>
 

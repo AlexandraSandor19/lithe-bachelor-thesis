@@ -12,7 +12,30 @@ $grey: rgb(100, 100, 100);
 $light-grey: rgb(192, 192, 192);
 $whiteish: rgb(233, 233, 233);
 $yellow: #FFBD59;
+$dark-blue: rgb(84, 84, 185);
+$blue: rgb(96, 96, 213);
 
+/* ISSUES PRIORITY COLORING */
+$vlow-pr-blue: rgba(26, 35, 157, 0.874);
+$low-pr-blue: rgb(39, 73, 195);
+$medium-pr-green: rgb(48, 158, 110);
+$high-pr-red: rgba(238, 41, 41, 0.978);
+$vhigh-pr-red: rgb(224, 30, 30, 0.7);
+.high-pr-card {
+    border-left: 3px solid $high-pr-red;
+}
+.vhigh-pr-card {
+    border-left: 3px solid $vhigh-pr-red;
+}
+.medium-pr-card {
+    border-left: 3px solid $medium-pr-green;
+}
+.low-pr-card {
+    border-left: 3px solid $low-pr-blue;
+}
+.vlow-pr-card {
+    border-left: 3px solid $vlow-pr-blue;
+}
 /* TEXT/BOX SHADOWS */
 
 $box-shadow1: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

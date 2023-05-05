@@ -29,7 +29,6 @@ const priority_choices = ref([
     { level: "Medium" },
     { level: "High" },
     { level: "Very High" },
-    { level: "Critical" }
 ]);
 
 const modalState = computed(() => {
