@@ -23,6 +23,6 @@ const projectStore = useProjectStore();
 <style lang="scss" scoped>
   .page-content {
     margin-left: 18rem;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem 1rem 2rem;
   }
 </style>

@@ -113,13 +113,8 @@ const isAuthenticated = computed(() => {
     border-radius: 7px;
     padding: 0.7rem 1.5rem;
     cursor: pointer;
-    box-shadow: $bs-yellow-light;
+    box-shadow: $box-shadow1;
     transition: 0.4s;
-
-    &:hover {
-      box-shadow: $bs-yellow;
-      text-shadow: $ts-yellow;
-    }
   }
 
   .features-section {

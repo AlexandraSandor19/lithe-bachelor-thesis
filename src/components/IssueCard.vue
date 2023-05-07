@@ -76,7 +76,9 @@ const priorityIconClass = computed(() => {
     font-family: $pt-sans-font;
     padding: 1.2rem 1.5rem;
     width: 13rem;
-    //border: 1px solid $whiteish;
+    border-top: 1px solid $whiteish;
+    border-bottom: 1px solid $whiteish;
+    border-right: 1px solid $whiteish;
 
     hr {
         border-top: 1px solid $light-grey;

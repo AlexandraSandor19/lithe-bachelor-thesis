@@ -22,7 +22,7 @@ const user = computed(() => {
                     <span class="pi pi-user"></span>
                     Profile
                 </a>            
-                <a class="menu-item">
+                <a href="/teams" class="menu-item">
                     <span class="pi pi-users"></span>
                     Teams
                 </a>                
@@ -66,6 +66,7 @@ const user = computed(() => {
     box-shadow: $box-shadow1;
     padding: 1.3rem;
     font-family: $pt-sans-font;
+    border: 1px solid $whiteish;
 
     .menu {
         display: flex;

@@ -58,6 +58,16 @@ export const useAuthStore = defineStore('auth', {
             }
         },
 
+        async getUserById(param) {
+            try {
+                console.log(param);
+                const {data} = await useApiPrivate().get(`/api/auth/getUser/${param}`);
+                return data;
+            } catch (error) {
+                throw error.response.data;
+            }
+        },
+
         async logout() {
             try {
                 const {data} = await useApiPrivate().post(`/api/auth/logout`);

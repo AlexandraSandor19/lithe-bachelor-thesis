@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('../models/User').schema;
 
 const Schema = mongoose.Schema;
 
@@ -7,12 +8,20 @@ const TeamSchema = Schema(
         team_name: {
             type: String,
             required: true
-        },        
+        },
         creator_id: {
             type: String,
             required: true
         },
-        leader_id: String,
+        members_ids: {
+            type: [String],
+            required: true,
+            default: [],
+        },
+        lead: {
+            type: String,
+            default: "",
+        },
     },
 )
 

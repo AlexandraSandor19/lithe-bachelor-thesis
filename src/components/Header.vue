@@ -92,10 +92,8 @@ const toggle = (event) => {
     width: 100%;
     top: 0;
     background-color: $white;
-    -moz-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
-    -webkit-box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
-    box-shadow: rgba(57, 57, 57, 0.4) 0px 8px 24px;
-    z-index: 1;
+    box-shadow: $box-shadow2;
+    z-index: 2;
    }
 
   .tabs {
@@ -117,13 +115,7 @@ const toggle = (event) => {
         border: 2px solid $yellow;
         border-radius: 7px;
         padding: 0.4rem 1rem;
-        box-shadow: $bs-yellow-light;
-        transition: 0.4s;
-
-        &:hover {
-          box-shadow: $bs-yellow;
-          text-shadow: $ts-yellow;
-        }
+        box-shadow: $box-shadow1;
       }
     }
   }
