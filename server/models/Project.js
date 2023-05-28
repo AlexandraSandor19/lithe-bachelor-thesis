@@ -8,13 +8,23 @@ const ProjectSchema = Schema(
             type: String,
             required: true
         },        
-        creator_id: {
+        team_id: {
             type: String,
             required: true
         },
+        po_id: String,
         repository_url: String,
         labels: [String],
-        po_id: String,
+        target: String,
+    },
+    {
+        virtuals: {
+            id: {
+                get() {
+                    return this._id;
+                }
+            }
+        }
     },
 )
 

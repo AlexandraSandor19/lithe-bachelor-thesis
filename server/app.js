@@ -43,7 +43,11 @@ app.use(errorHandlerMiddleware);
 
 // Routes
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/user', require('./routes/api/user'));
 app.use('/api/team', require('./routes/api/teams'));
+app.use('/api/projects', require('./routes/api/projects'));
+app.use('/api/issue', require('./routes/api/issues'));
+app.use('/api/comments', require('./routes/api/comments'));
 
 app.all('*', (req, res) => {
     if (req.accepts('json')) {

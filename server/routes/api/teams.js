@@ -6,6 +6,8 @@ teamRouter.post('/create', teamControllers.createTeam);
 
 teamRouter.get('/getAll', teamControllers.getAll);
 
-teamRouter.get('/getUserTeams/:id', teamControllers.getTeamsOfUser);
+teamRouter.get('/:id', teamControllers.getTeamById);
+
+teamRouter.get('/users/:id', teamControllers.getUserTeams);
 
 module.exports = teamRouter;

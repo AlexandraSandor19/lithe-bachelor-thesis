@@ -1,4 +1,4 @@
-@import "./colors.scss";
+@import './colors.scss';
 
 body {
   margin: 0;
@@ -10,10 +10,13 @@ body {
   -webkit-animation-timing-function: linear;
 }
 
-
 @-webkit-keyframes fontfix {
-  from { opacity: 1; }
-  to   { opacity: 1; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 #app {

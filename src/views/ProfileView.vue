@@ -1,7 +1,7 @@
 <script setup>
-import Profile from '../components/Profile.vue';
-import Header from '../components/Header.vue';
-import Sidebar from '../components/Sidebar.vue';
+import Profile from '../components/Profile.vue'
+import Header from '../components/Header.vue'
+import Sidebar from '../components/Sidebar.vue'
 </script>
 
 <template>
@@ -17,16 +17,16 @@ import Sidebar from '../components/Sidebar.vue';
 </template>
 
 <style lang="scss" scoped>
-  main {
-    margin: 0;
-    background-color: $whiteish;
-    min-height: 100vh;
-  }  
+main {
+  margin: 0;
+  background-color: $eggshell;
+  min-height: 100vh;
+}
 
-    .profile {
-    display: flex;
-    margin-left: 17rem;
-    width: 100%;
-    height: 100%;
-    }
+.profile {
+  display: flex;
+  margin-left: 17rem;
+  width: 100%;
+  height: 100%;
+}
 </style>

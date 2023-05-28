@@ -3,11 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CommentSchema = Schema(
-    {
-        commentor_id: {
-            type: String,
-            required: true
-        },        
+    {     
         creator_id: {
             type: String,
             required: true
@@ -20,6 +16,19 @@ const CommentSchema = Schema(
             type: String,
             required: true
         },
+        date: {
+            type: Date,
+            required: true
+        }
+    },
+    {
+        virtuals: {
+            id: {
+                get() {
+                    return this._id;
+                }
+            }
+        }
     },
 )
 

@@ -16,10 +16,14 @@ const IssueSchema = Schema(
             type: String,
             required: true
         },
-        story_points: Number,
+        status: {
+            type: String,
+            required: true
+        },
+        story_points: String,
         priority: String,
         labels: [String],
-        asignee_id: String,
+        assignee_id: String,
         goal: {
             type: String,
             required: true
@@ -28,6 +32,15 @@ const IssueSchema = Schema(
             type: String,
             required: true
         },
+    },
+    {
+        virtuals: {
+            id: {
+                get() {
+                    return this._id;
+                }
+            }
+        }
     },
 )
 

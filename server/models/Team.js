@@ -18,10 +18,19 @@ const TeamSchema = Schema(
             required: true,
             default: [],
         },
-        lead: {
+        team_leader_id: {
             type: String,
             default: "",
         },
+    },
+    {
+        virtuals: {
+            id: {
+                get() {
+                    return this._id;
+                }
+            }
+        }
     },
 )
 

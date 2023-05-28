@@ -37,19 +37,30 @@ async function getAll(req, res) {
         const teams = await Team.find({});
         return res.status(200).json(teams);
     } catch(error) {
-        return res.status(400).json({'message': 'Something went wrong! Could not get teams!'});
+        return res.status(400).json({'message': 'Something went wrong! Could not find teams!'});
     }
 }
 
-async function getTeamsOfUser(req, res) {
+async function getTeamById(req, res) {
     const { id } = req.params;
 
     try {
-        const teams = await Team.find({ members_ids : { $in: id }}).exec();
-        return res.status(200).json(teams);
+        const team = await Team.findById(id);
+        return res.status(200).json(team);
     } catch(error) {
-        return res.status(400).json({'message': 'Something went wrong! Could not get teams!'});
+        return res.status(400).json({'message': 'Something went wrong! Could not find team!'});
     }
 }
 
-module.exports = { createTeam, getAll, getTeamsOfUser };
+async function getUserTeams(req, res) {
+    const { id } = req.params;
+
+    try {
+        const teams = await Team.find({ members_ids: id });
+        return res.status(200).json(teams);
+    } catch(error) {
+        return res.status(400).json({'message': 'Something went wrong! Could not find team!'});
+    }
+}
+
+module.exports = { createTeam, getAll, getTeamById, getUserTeams };

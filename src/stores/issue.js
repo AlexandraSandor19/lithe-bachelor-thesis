@@ -1,18 +1,62 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
+import { useApi } from '../composables/api'
 
 export const useIssueStore = defineStore('issue', {
-    state: () => ({
-        isIssueModalOpen: false
-    }),
-    getters: {
-        modalState: state => state.isIssueModalOpen,
+  state: () => ({
+    issues: [],
+    isIssueModalOpen: false
+  }),
+  getters: {
+    allIssues: (state) => state.issues,
+    modalState: (state) => state.isIssueModalOpen
+  },
+  actions: {
+    openIssueModal() {
+      this.isIssueModalOpen = true
     },
-    actions: {
-        openIssueModal() {
-            this.isIssueModalOpen = true;
-        },
-        closeIssueModal() {
-            this.isIssueModalOpen = false;
-        }
+    closeIssueModal() {
+      this.isIssueModalOpen = false
     },
+    async create(payload) {
+      try {
+        const { data } = await useApi().post(`/api/issue/create`, payload)
+        return data
+      } catch (error) {
+        throw error.response.data
+      }
+    },
+    async getAll() {
+      try {
+        const { data } = await useApi().get(`/api/issue/getAll`)
+        this.issues = data
+        return data
+      } catch (error) {
+        throw error.response.data
+      }
+    },
+    async getProjectIssues(param) {
+      try {
+        const { data } = await useApi().get(`/api/issue/projects/${param}`)
+        return data
+      } catch (error) {
+        throw error.response.data
+      }
+    },
+    async getIssueById(param) {
+      try {
+        const { data } = await useApi().get(`/api/issue/${param}`)
+        return data
+      } catch (error) {
+        throw error.response.data
+      }
+    },
+    async pointIssue(param) {
+      try {
+        const { data } = await useApi().put(`/api/issue/points/${param}`)
+        return data
+      } catch (error) {
+        throw error.response.data
+      }
+    },
+  }
 })

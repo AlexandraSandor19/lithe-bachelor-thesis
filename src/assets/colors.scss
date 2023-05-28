@@ -1,17 +1,23 @@
 /* MAIN COLORS */
 
-$white: #FFFF;
+$white: #ffff;
+$eggshell: #f0f6ffe8;
+$whiteish: rgba(223, 223, 223, 0.952);
 $black-pure: #0000;
-$bcg-purple-pure: #5E376D;
+$main-purple: #5e376d;
 $light-purple: rgba(195, 131, 221, 0.7);
-$bcg-purple-gradient: linear-gradient(180deg, rgba(94,55,109,1) 0%, rgba(171,128,180,1) 56%, rgba(150,160,108,0.829656862745098) 100%);
+$bcg-purple-gradient: linear-gradient(
+  180deg,
+  rgba(94, 55, 109, 1) 0%,
+  rgba(171, 128, 180, 1) 56%,
+  rgba(150, 160, 108, 0.829656862745098) 100%
+);
 $black-1: rgb(33, 33, 33);
 $black-2: rgb(52, 52, 52);
 $dark-grey: rgb(79, 79, 79);
 $grey: rgb(100, 100, 100);
 $light-grey: rgb(192, 192, 192);
-$whiteish: rgb(233, 233, 233);
-$yellow: #FFBD59;
+$yellow: #ffbd59;
 $yellow1: #e9a53e;
 $dark-blue: rgb(84, 84, 185);
 $blue: rgb(96, 96, 213);
@@ -23,28 +29,29 @@ $medium-pr-green: rgb(48, 158, 110);
 $high-pr-red: rgba(238, 41, 41, 0.978);
 $vhigh-pr-red: rgb(224, 30, 30, 0.7);
 .high-pr-card {
-    border-left: 3px solid $high-pr-red;
+  border-left: 3px solid $high-pr-red;
 }
 .vhigh-pr-card {
-    border-left: 3px solid $vhigh-pr-red;
+  border-left: 3px solid $vhigh-pr-red;
 }
 .medium-pr-card {
-    border-left: 3px solid $medium-pr-green;
+  border-left: 3px solid $medium-pr-green;
 }
 .low-pr-card {
-    border-left: 3px solid $low-pr-blue;
+  border-left: 3px solid $low-pr-blue;
 }
 .vlow-pr-card {
-    border-left: 3px solid $vlow-pr-blue;
+  border-left: 3px solid $vlow-pr-blue;
 }
 /* TEXT/BOX SHADOWS */
 
 $box-shadow1: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 $box-shadow2: rgba(67, 67, 67, 0.3) 0px 4px 28px;
+$bs-slight-blue: -5px 1px 11px 0px rgba(177,179,245,1);;
 $ts-light-purple: 0px 0px 13px rgba(195, 131, 221, 0.7);
-$ts-yellow: 0px 2px 12px rgba(255,189,89,0.7);
-$bs-yellow: -1px 1px 10px 0px rgba(255,189,89,0.7);
-$bs-yellow-light: -1px 1px 6px 0px rgba(255,189,89,0.6);
+$ts-yellow: 0px 2px 12px rgba(255, 189, 89, 0.7);
+$bs-yellow: -1px 1px 10px 0px rgba(255, 189, 89, 0.7);
+$bs-yellow-light: -1px 1px 6px 0px rgba(255, 189, 89, 0.6);
 
 /* FONTS */
 
