@@ -1,9 +1,11 @@
 <script setup>
-import { ref } from 'vue';
-import Profile from '../components/Profile.vue'
+import { ref, onMounted } from 'vue'
 import Header from '../components/Header.vue'
 import Sidebar from '../components/Sidebar.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
+console.log(route.params.id);
 </script>
 
 <template>
@@ -11,8 +13,7 @@ import Sidebar from '../components/Sidebar.vue'
     <Header />
     <div class="flex flex-row">
       <Sidebar />
-      <div class="profile">
-        <Profile @load="(res) => loadProfile(res)"/>
+      <div class="page-content">
       </div>
     </div>
   </main>
@@ -20,15 +21,11 @@ import Sidebar from '../components/Sidebar.vue'
 
 <style lang="scss" scoped>
 main {
-  margin: 0;
   background-color: $eggshell;
   min-height: 100vh;
 }
-
-.profile {
-  display: flex;
-  margin-left: 17rem;
-  width: 100%;
-  height: 100%;
+.page-content {
+  margin-left: 18rem;
+  padding: 2rem 1rem;
 }
 </style>

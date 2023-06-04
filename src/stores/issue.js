@@ -50,9 +50,17 @@ export const useIssueStore = defineStore('issue', {
         throw error.response.data
       }
     },
-    async pointIssue(param) {
+    async pointIssue(param, payload) {
       try {
-        const { data } = await useApi().put(`/api/issue/points/${param}`)
+        const { data } = await useApi().put(`/api/issue/points/${param}`, payload)
+        return data
+      } catch (error) {
+        throw error.response.data
+      }
+    },
+    async changeStatus(param, payload) {
+      try {
+        const { data } = await useApi().put(`/api/issue/status/${param}`, payload)
         return data
       } catch (error) {
         throw error.response.data

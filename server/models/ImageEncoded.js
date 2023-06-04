@@ -8,7 +8,7 @@ var imageSchema = Schema(
             required: true
         },
         image: {
-            data: Buffer,
+            data: String,
             contentType: String
         },
         owner_id: {
@@ -27,4 +27,4 @@ var imageSchema = Schema(
     },
 );
  
-module.exports = mongoose.model('ProfileImage', imageSchema);
+module.exports = mongoose.model('ImageEncoded', imageSchema);

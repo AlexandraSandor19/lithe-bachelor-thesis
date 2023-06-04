@@ -8,7 +8,9 @@ const authStore = useAuthStore()
 const uploadStore = useUploadsStore()
 const router = useRouter()
 
-const selectedPhoto = ref('')
+const isLoaded = ref(false)
+const photo = ref()
+const selectedPhoto = ref()
 
 const user = computed(() => {
   return authStore.userData
@@ -23,9 +25,9 @@ const adUsername = computed(() => {
   return `@${authStore.userData.username}`
 })
 
-async function getUser() {
-  await authStore.getUser()
-}
+const imageSource = computed(() => {
+  return `data:${uploadStore.profileImage.image.contentType};base64,${uploadStore.profileImage.image.data}`;
+})
 
 const onFileSelected = (event) => {
   selectedPhoto.value = event.target.files[0]
@@ -33,15 +35,23 @@ const onFileSelected = (event) => {
 
 async function uploadFile() {
   try {
-    const response = await uploadStore.upload(selectedPhoto.value)
-    console.log(response)
+    const file = selectedPhoto.value;
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('name', file.name);
+    formData.append('owner_id', authStore.userData._id);
+    console.log(file);
+    // const response = await uploadStore.upload(formData)
+    // console.log(response);
   } catch (err) {
     console.log(err)
   }
 }
 
 onMounted(async () => {
-  await getUser()
+  await authStore.getUser()
+  await uploadStore.getImage(authStore.userData._id);
+  isLoaded.value = true
 })
 </script>
 
@@ -52,11 +62,24 @@ onMounted(async () => {
     <div v-if="user" class="flex flex-row h-9">
       <div class="flex flex-column w-max mr-5">
         <div class="image-section">
-          <img
-            class="prf-image"
-            src="https://primefaces.org/cdn/primevue/images/galleria/galleria7.jpg"
-            alt="Image"
-          />
+          <Skeleton 
+            v-if="!isLoaded" 
+            shape="circle"
+            size="14rem"
+            />
+          <div v-else>
+            <img
+              v-if="uploadStore.profileImage"
+              class="prf-image"
+              :src="imageSource"
+            />
+            <img
+              v-else
+              class="prf-image"
+              src="../assets/default-user-icon.jpg"
+              alt="Profile Image"
+            />
+          </div>
           <div class="name-section">
             <span class="fullname">{{ user.fullName }}</span>
             <span class="username">{{ adUsername }}</span>
@@ -191,6 +214,8 @@ onMounted(async () => {
   height: 14rem;
   border-radius: 50%;
   box-shadow: $box-shadow1;
+  object-fit: cover;
+  border: 0.9px solid $light-grey;
 }
 
 .info-label {

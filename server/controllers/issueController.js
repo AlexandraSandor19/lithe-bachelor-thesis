@@ -103,4 +103,19 @@ async function pointIssue(req, res) {
     }
 }
 
-module.exports = { createIssue, getAll, getProjectIssues, getUserIssues, getCreatorIssues, getIssueById, pointIssue };
+async function changeIssueStatus(req, res) {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+        const result = await Issue.findByIdAndUpdate({ _id: id }, { status: status });
+        if (!result) {
+            return res.status(422).json({ "message": "Failed to change status!"});
+        }
+        return res.sendStatus(200);
+    } catch (error) {
+        return res.status(404).json({ "message": "Something went wrong!"});
+    }
+}
+
+module.exports = { createIssue, getAll, getProjectIssues, getUserIssues, getCreatorIssues, getIssueById, pointIssue, changeIssueStatus };

@@ -48,6 +48,7 @@ app.use('/api/team', require('./routes/api/teams'));
 app.use('/api/projects', require('./routes/api/projects'));
 app.use('/api/issue', require('./routes/api/issues'));
 app.use('/api/comments', require('./routes/api/comments'));
+app.use('/api/image', require('./routes/api/image'));
 
 app.all('*', (req, res) => {
     if (req.accepts('json')) {

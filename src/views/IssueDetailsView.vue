@@ -6,6 +6,7 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import { useAuthStore } from '../stores/auth'
 import { useIssueStore } from '../stores/issue'
 import { useCommentStore } from '../stores/comments'
+import { useUploadsStore } from '../stores/uploads'
 import { useRoute } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import { story_points, status } from '../utils/constants'
@@ -15,10 +16,26 @@ const route = useRoute()
 const userStore = useAuthStore()
 const commentStore = useCommentStore()
 const issueStore = useIssueStore()
+const uploadsStore = useUploadsStore()
 
 const toast = useToast()
 
 const editorText = ref("")
+
+const assigneeImage = ref(null)
+const creatorImage = ref(null)
+
+const assigneeimageSource = computed(() => {
+  if (assigneeImage.value) {
+    return `data:${assigneeImage.value.image.contentType};base64,${assigneeImage.value.image.data}`;
+  }
+})
+
+const creatorimageSource = computed(() => {
+  if (creatorImage.value) {
+    return `data:${creatorImage.value.image.contentType};base64,${creatorImage.value.image.data}`;
+  }
+})
 
 const state = reactive({
   isLoaded: false,
@@ -26,8 +43,19 @@ const state = reactive({
   assignor: {},
   assignee: {},
   comments: [],
+  commentNumber: 0,
   points: ""
 })
+
+async function addCommentToState(comment) {
+  const user = await userStore.getUserById(comment.creator_id);
+  state.comments.push({
+    id: comment._id,
+    user: user,
+    date: new Date(comment.date),
+    content: comment.content
+  })
+}
 
 async function submitComment() {
   const myId = userStore.userData.id
@@ -39,12 +67,14 @@ async function submitComment() {
     content: editorText.value
   }
 
-  await commentStore.create(data).then(async (res) => {
-      await handleComments();
-    })
-    .catch((err) => {
-      showError(err.message)
-    })
+  const response = await commentStore.create(data);
+  if (response.message) {
+    showError(response.message);
+  } else {
+    editorText.value = "";
+    await addCommentToState(response);
+    state.commentNumber++;
+  }
 }
 
 const assignorFullname = computed(() => {
@@ -60,16 +90,19 @@ const showError = (message) => {
 }
 
 const handleComments = async () => {
+  state.comments = [];
   const id = route.params.id;
   await commentStore.getComments(id);
   commentStore.allComments.forEach(async (comment) => {
-    const user = await userStore.getUserById(comment.creator_id);
-    state.comments.push({
-      user: user,
-      date: new Date(comment.date),
-      content: comment.content
-    })
+    await addCommentToState(comment);
   })
+  state.commentNumber = commentStore.allComments.length;
+}
+
+const refreshComments = (id) => {
+  const index = state.comments.indexOf(comment => comment.id === id);
+  state.comments.splice(index, 1);
+  state.commentNumber--;
 }
 
 onMounted(async () => {
@@ -80,6 +113,9 @@ onMounted(async () => {
   state.assignee = state.issue.assignee_id ? await userStore.getUserById(state.issue.assignee_id) : "";
   state.points = state.issue.story_points ?? ""
   await handleComments();
+  assigneeImage.value = await uploadsStore.getImage(state.issue.assignee_id);
+  creatorImage.value = await uploadsStore.getImage(state.issue.creator_id);
+  console.log(creatorImage.value)
   state.isLoaded = true;
 })
 </script>
@@ -103,11 +139,15 @@ onMounted(async () => {
             <div class="field">             
               <span class="field-name">Created by:</span>
               <span class="user-field">
-                <Avatar
-                  style="width: 1.6rem; height: 1.6rem"
-                  image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-                  class="mr-2 ml-3"
-                  shape="circle"
+                <img
+                    v-if="!creatorImage"
+                    src="../assets/default-user-icon.jpg"
+                    class="prf-image mr-2 ml-3"
+                />
+                <img
+                    v-else
+                    :src="creatorimageSource"
+                    class="prf-image mr-2 ml-3"
                 />
                 {{ assignorFullname }}
               </span>
@@ -115,11 +155,15 @@ onMounted(async () => {
             <div class="field">           
               <span class="field-name">Assigned to:</span>
               <span v-if="state.assignee" class="user-field">
-                <Avatar
-                  style="width: 1.6rem; height: 1.6rem"
-                  image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-                  class="mr-2 ml-3"
-                  shape="circle"
+                <img
+                    v-if="!assigneeImage"
+                    src="../assets/default-user-icon.jpg"
+                    class="prf-image mr-2 ml-3"
+                />
+                <img
+                    v-else
+                    :src="assigneeimageSource"
+                    class="prf-image mr-2 ml-3"
                 />
                 {{ assigneeFullname }}
               </span>
@@ -130,10 +174,6 @@ onMounted(async () => {
           </div>
           <Divider layout="vertical" />
           <div class="flex flex-column">
-            <!-- <div class="field">
-              <span class="field-name">Status:</span>
-              <span>{{ state.issue.status }}</span>
-            </div> -->
             <div class="field">
               <span class="field-name">Story points:</span>
               <Dropdown v-model="state.points" :options="story_points" :placeholder="state.points" class="w-full" />
@@ -165,13 +205,15 @@ onMounted(async () => {
           <div class="flex flex-column container">
             <div class="mb-2">
               <span class="comment-label">Comments</span>
-              <span class="number-comments">{{ state.comments.length }}</span>
+              <span class="number-comments">{{ state.commentNumber }}</span>
             </div>
             <div v-for="comment in state.comments">
-              <Comment 
+              <Comment
+                :id="comment.id"
                 :user="comment.user"
                 :date="comment.date"
                 :content="comment.content"
+                @refreshComments="(id) => refreshComments(id)"
               />
             </div>
             <form @submit.prevent="submitComment" class="flex flex-column mt-3">
@@ -217,6 +259,15 @@ main {
 :deep(.p-dropdown .p-dropdown-label.p-placeholder) {
   width: 0.4rem;
   padding: 0.5rem;
+}
+
+.prf-image {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  box-shadow: $box-shadow1;
+  border: 0.9px solid $light-grey;
+  object-fit: cover;
 }
 
 .right-icon {

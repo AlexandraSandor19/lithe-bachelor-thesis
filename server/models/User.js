@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ProfileImage = require('./ProfileImage');
 
 const Schema = mongoose.Schema;
 
@@ -6,19 +7,19 @@ const UserSchema = Schema(
     {
         username: {
             type: String,
-            //required: true
+            required: true
         },
         surname: {
             type: String,
-            //required: true
+            required: true
         },
         forename: {
             type: String,
-            //required: true
+            required: true
         },
         email: {
             type: String,
-            //required: true,
+            required: true,
             lowercase:true,
             trim: true,
             unique: true,
@@ -28,11 +29,11 @@ const UserSchema = Schema(
         },
         role: {
             type: String,
-            //required: true
+            required: true
         },
         password: {
             type: String,
-            //required: true,
+            required: true,
         },
         refresh_token: String,
     },

@@ -50,6 +50,13 @@ function viewBoard() {
   })
 }
 
+function viewBacklog() {
+  router.replace({
+    name: 'team-backlog',
+    params: { id: route.params.id }
+  })
+}
+
 onMounted(async () => {
   await userStore.getUser()
   await projectStore.getAllProjects()
@@ -108,7 +115,7 @@ onMounted(async () => {
           </div>
           <div class="container flex flex-column ml-3 h-full">
             <button class="btn" @click="viewBoard">View Board</button>
-            <button class="btn">View Backlog</button>
+            <button class="btn" @click="viewBacklog">View Backlog</button>
           </div>
         </div>
       </div>

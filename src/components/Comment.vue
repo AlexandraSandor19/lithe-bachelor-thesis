@@ -1,7 +1,13 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import { useAuthStore } from '../stores/auth'
+import { useUploadsStore } from '../stores/uploads'
+import { useCommentStore } from '../stores/comments';
 
 const props = defineProps({
+    id: {
+        type: String
+    },
     user: {
         type: Object
     },
@@ -11,6 +17,44 @@ const props = defineProps({
     date: {
         type: Date
     },
+})
+
+const emit = defineEmits(
+    ['refreshComments']
+)
+
+const userStore = useAuthStore()
+const commentStore = useCommentStore()
+const uploadsStore = useUploadsStore()
+
+const menu = ref()
+const image = ref(null)
+const isLoaded = ref(false)
+
+const removeOption = ref([
+    {
+        label: 'Delete comment',
+        icon: 'pi pi-trash',
+        command: async () => {
+            if (props.user._id === userStore.userData._id) {
+                const response = await commentStore.removeComment(props.id);
+                console.log(response);
+                emit('refreshComments', props.id);
+            } else {
+                console.log("doesn't work");
+            }
+        }
+    }
+])
+
+const toggle = (event) => {
+    menu.value.toggle(event);
+};
+
+const imageSource = computed(() => {
+  if (image.value) {
+    return `data:${uploadsStore.profileImage.image.contentType};base64,${uploadsStore.profileImage.image.data}`;
+  }
 })
 
 const fullname = computed(() => {
@@ -29,11 +73,28 @@ const date = computed(() => {
         return 'just now';
     }
     if (timeDiff < 60) {
-        return `about ${Math.floor(timeDiff)} minutes ago`
+        return Math.floor(timeDiff) > 1 ? `about ${Math.floor(timeDiff)} minutes ago` : `about ${Math.floor(timeDiff)} minute ago`
     } else {
-        timeDiff /= 60;
-        return `about ${Math.floor(timeDiff)} hours ago`;
+        if (timeDiff < 24) {
+            timeDiff /= 60;
+            return Math.floor(timeDiff) > 1 ? `about ${Math.floor(timeDiff)} hours ago` : `about ${Math.floor(timeDiff)} hour ago`;
+        } else {
+            timeDiff /= 60 * 24;
+            if ( timeDiff < 7) {
+                return Math.floor(timeDiff) > 1 ? `${Math.floor(timeDiff)} days ago` : `about ${Math.floor(timeDiff)} day ago`;   
+            } else {
+                timeDiff /= 7;
+                return Math.floor(timeDiff) > 1 ? `about ${Math.floor(timeDiff)} weeks ago` : `about ${Math.floor(timeDiff)} week ago`;   
+            }   
+        }
     }
+})
+
+onMounted(async () => {
+  await userStore.getUser();
+  image.value = await uploadsStore.getImage(props.user._id);
+  console.log()
+  isLoaded.value = true;
 })
 
 </script>
@@ -42,18 +103,42 @@ const date = computed(() => {
   <div class="comment-container">
     <div class="header">
         <div class="flex flex-row">
-            <Avatar
-                style="width: 2.3rem; height: 2.3rem"
-                image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-                class="mr-2"
+            <Skeleton 
+                v-if="!isLoaded" 
                 shape="circle"
+                size="2.5rem"
+                class="mr-2"
             />
+            <div v-else>
+                <img
+                    v-if="!image"
+                    src="../assets/default-user-icon.jpg"
+                    class="prf-image mr-2"
+                />
+                <img
+                    v-else
+                    :src="imageSource"
+                    class="prf-image mr-2"
+                />
+            </div>
             <div class="flex flex-row align-items-center h-full">
                 <span class="user-fullname">{{ fullname }}</span>
                 <span class="username">{{ username }}</span>
             </div>
         </div>
-        <span class="date">{{ date }}</span>
+        <div class="flex flex-row justify-content-center mt-1">
+            <span class="date">{{ date }}</span>
+            <div v-if="props.user._id === userStore.userData._id">
+                <span class="pi pi-ellipsis-v" label="Toggle" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu"></span>
+                <Menu 
+                    ref="menu" 
+                    id="overlay_menu" 
+                    :model="removeOption" 
+                    :popup="true"
+                    style="width: fit-content; font-size: 0.9rem"
+                    />
+            </div>
+        </div>
     </div>
     <div class="content" v-html="props.content"></div>
   </div>
@@ -72,6 +157,15 @@ const date = computed(() => {
     padding: 1rem;
     font-family: $pt-sans-font;
 }
+
+.prf-image {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    box-shadow: $box-shadow1;
+    border: 0.9px solid $light-grey;
+    object-fit: cover;
+  }
 
 .header {
     display: flex;
@@ -92,7 +186,13 @@ const date = computed(() => {
     .date {
         color: $grey;
         font-size: 0.8rem;
-        margin-right: 1rem;
+        margin-right: 0.7rem;
+    }
+
+    :deep(.pi-ellipsis-v) {
+        font-size: 0.8;
+        color: $grey;
+        cursor: pointer;
     }
 }
 

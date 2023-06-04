@@ -1,9 +1,11 @@
 <script setup>
 import Logo from './Logo.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
+import { useUploadsStore } from '../stores/uploads'
 
+const uploadsStore = useUploadsStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
@@ -13,6 +15,12 @@ const user = computed(() => {
 
 const isAuthenticated = computed(() => {
   return authStore.isAuthenticated
+})
+
+const imageSource = computed(() => {
+  if (image.value) {
+    return `data:${uploadsStore.profileImage.image.contentType};base64,${uploadsStore.profileImage.image.data}`;
+  }
 })
 
 async function logout() {
@@ -27,6 +35,7 @@ async function logout() {
 }
 
 const menu = ref()
+const image = ref(null)
 
 const items = ref([
   { separator: true },
@@ -45,6 +54,11 @@ const items = ref([
 const toggle = (event) => {
   menu.value.toggle(event)
 }
+
+onMounted(async () => {
+  await authStore.getUser();
+  image.value = await uploadsStore.getImage(authStore.userData._id);
+})
 </script>
 
 <template>
@@ -63,10 +77,15 @@ const toggle = (event) => {
         <span class="pi pi-fw pi-home header-icon"></span>
       </router-link>
       <button class="user-btn" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
-        <Avatar
-          image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-          class="mr-5"
-          shape="circle"
+        <img
+          v-if="!image"
+          src="../assets/default-user-icon.jpg"
+          class="prf-image mr-4"
+        />
+        <img
+          v-else
+          :src="imageSource"
+          class="prf-image mr-4"
         />
         <span class="pi pi-chevron-down"></span>
       </button>
@@ -102,6 +121,15 @@ const toggle = (event) => {
   background-color: $white;
   box-shadow: $box-shadow2;
   z-index: 2;
+}
+
+.prf-image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  box-shadow: $box-shadow1;
+  border: 0.9px solid $light-grey;
+  object-fit: cover;
 }
 
 .tabs {

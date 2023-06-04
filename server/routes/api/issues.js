@@ -16,4 +16,6 @@ issueRouter.get('/:id', issueControllers.getIssueById);
 
 issueRouter.put('/points/:id', issueControllers.pointIssue);
 
+issueRouter.put('/status/:id', issueControllers.changeIssueStatus);
+
 module.exports = issueRouter;

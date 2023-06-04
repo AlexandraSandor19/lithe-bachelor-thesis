@@ -1,11 +1,50 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import { useUploadsStore } from '../stores/uploads'
+import { useTeamStore } from '../stores/team'
 
 const authStore = useAuthStore()
+const uploadsStore = useUploadsStore()
+const teamStore = useTeamStore()
+const router = useRouter()
+
+const menu = ref()
+const image = ref(null)
+const myTeams = ref([]);
 
 const user = computed(() => {
   return authStore.userData
+})
+
+const imageSource = computed(() => {
+  if (image.value) {
+    return `data:${uploadsStore.profileImage.image.contentType};base64,${uploadsStore.profileImage.image.data}`;
+  }
+})
+
+const toggle = (event) => {
+    menu.value.toggle(event);
+};
+
+const boardsOptions = ref([]);
+
+onMounted(async () => {
+  await authStore.getUser();
+  const myTeams = await teamStore.getUserTeams(authStore.userData._id);
+  myTeams.forEach((team) => {
+    boardsOptions.value.push({
+      label: `${team.team_name}'s Board`,
+      command: () => {
+        router.replace({
+          name: 'board',
+          params: { id: team._id }
+        })
+      }
+    })
+  })
+  image.value = await uploadsStore.getImage(authStore.userData._id);
 })
 </script>
 
@@ -33,19 +72,35 @@ const user = computed(() => {
           <span class="pi pi-bookmark"></span>
           Issues
         </a>
-        <a href="/board" class="menu-item">
-          <span class="pi pi-th-large"></span>
-          Boards
+        <a class="flex flex-row align-items-center justify-content-between menu-item">
+          <div>
+            <span class="pi pi-th-large" label="Toggle" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu"></span>
+            Boards            
+          </div>
+          <div>
+            <span class="pi pi-angle-down mr-2" label="Toggle" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu"></span>
+            <Menu 
+                ref="menu" 
+                id="overlay_menu" 
+                :model="boardsOptions" 
+                :popup="true"
+                style="font-size: 0.9rem; font-weight:600"
+                />
+          </div>
         </a>
       </div>
       <div>
         <Divider />
         <div class="user-info">
-          <Avatar
-            style="width: 2.5rem; height: 2.5rem"
-            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-            class="mr-2"
-            shape="circle"
+          <img
+            v-if="!image"
+            src="../assets/default-user-icon.jpg"
+            class="prf-image mr-2"
+          />
+          <img
+            v-else
+            :src="imageSource"
+            class="prf-image mr-2"
           />
           <span class="name">{{ user.fullName }}</span>
         </div>
@@ -61,7 +116,7 @@ const user = computed(() => {
   flex-direction: column;
   justify-content: space-between;
   height: calc(100vh - 7.5rem);
-  width: 16rem;
+  width: 17rem;
   background-color: $white;
   margin-top: 1.5rem;
   border-radius: 5px;
@@ -71,13 +126,23 @@ const user = computed(() => {
   font-family: $pt-sans-font;
   border: 1px solid $whiteish;
 
+  .prf-image {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    box-shadow: $box-shadow1;
+    border: 0.9px solid $light-grey;
+    object-fit: cover;
+  }
+
   .menu {
     display: flex;
     flex-direction: column;
 
     .menu-item {
-      font-size: 0.95rem;
-      color: $dark-grey;
+      font-size: 0.96rem;
+      color: $grey;
+      font-weight: 600;
       margin: 0.4rem 0 1.1rem 0.7rem;
       transition: all 0.2s ease-in-out;
       cursor: pointer;

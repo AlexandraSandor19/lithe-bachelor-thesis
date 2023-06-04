@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const ProfileImage = require("../models/ProfileImage");
 
 async function getAll(req, res) {
     try {
@@ -38,24 +37,4 @@ async function update(req, res) {
     }
 }
 
-async function uploadImage(req, res) {
-    var obj = {
-        name: req.body.name,
-        img: {
-            data: fs.readFileSync(path.join('../../uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    };
-    
-    await ProfileImage.create(obj)
-        .then ((err, img) => {
-            if (err) {
-                return res.send(422).json({'message': 'wrong'})
-            }
-            else {
-                return res.sendStatus(201);
-            }
-        });
-}
-
-module.exports = { data, update, uploadImage, getAll }
+module.exports = { data, update, getAll }

@@ -14,7 +14,7 @@ export const useCommentStore = defineStore('comment', {
         const { data } = await useApi().post(`/api/comments/create`, payload)
         return data
       } catch (error) {
-        throw error.response.data
+        return error.response.data
       }
     },
     async getComments(param) {
@@ -23,7 +23,15 @@ export const useCommentStore = defineStore('comment', {
         this.comments = data
         return data
       } catch (error) {
-        throw error.response.data
+        return error.response.data
+      }
+    },
+    async removeComment(param) {
+      try {
+        const { data } = await useApi().delete(`/api/comments/${param}`)
+        return data
+      } catch (error) {
+        return error.response.data
       }
     },
   }

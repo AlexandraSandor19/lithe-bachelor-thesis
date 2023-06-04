@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="issue-card" :class="issueColorClass(props.issue.priority)">
+  <div :id="props.issue._id" class="issue-card" :class="issueColorClass(props.issue.priority)">
     <span class="project">{{ props.issue.project_name }}</span>
     <div class="title">
       {{ props.issue.issue_name }}
@@ -37,20 +37,22 @@ onMounted(async () => {
         Story points:
         <span class="points">{{ props.issue.story_points }}</span>
       </span>
-      <span class="assignee">assignee: {{ assignee }}</span>
+      <span v-if="assignee" class="assignee">assignee: {{ assignee }}</span>
+      <span v-else class="assignee">unassigned</span>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .issue-card {
+  cursor: pointer;
   border-radius: 10px;
   background-color: $white;
   box-shadow: $box-shadow1;
   margin: 1rem;
   font-family: $pt-sans-font;
   padding: 1.2rem 1.5rem;
-  max-width: 12rem;
+  min-width: 13rem;
   border-top: 1px solid $whiteish;
   border-bottom: 1px solid $whiteish;
   border-right: 1px solid $whiteish;
@@ -94,11 +96,13 @@ onMounted(async () => {
 }
 
 .priority {
+  margin-bottom: 0.2rem;
   text-transform: lowercase;
   color: $dark-grey;
 }
 
 .assignee {
+  margin-top: 0.2rem;
   color: $dark-grey;
 }
 </style>

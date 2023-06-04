@@ -11,6 +11,4 @@ userRouter.get('/data/:id', userController.data);
 
 userRouter.put('/update/:id', userController.update);
 
-userRouter.post('/upload/profile-pic', upload.single('file'), userController.uploadImage);
-
 module.exports = userRouter;

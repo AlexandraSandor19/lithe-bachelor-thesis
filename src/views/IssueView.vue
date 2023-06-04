@@ -15,7 +15,6 @@ const projectStore = useProjectStore()
 const router = useRouter()
 
 const state = reactive([])
-const isLoaded = ref(false)
 const metaKey = ref(true)
 
 const openedByMe = computed(() => {

@@ -11,6 +11,7 @@ import TeamsView from '../views/TeamsView.vue'
 import TeamDetailsView from '../views/TeamDetailsView.vue'
 import ProjectDetailsView from '../views/ProjectDetailsView.vue'
 import IssueDetailsView from '../views/IssueDetailsView.vue';
+import BacklogView from '../views/BacklogView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -79,7 +80,13 @@ const router = createRouter({
       name: 'issue-details',
       component: IssueDetailsView,
       meta: { requiresAuth: true }
-    }
+    },
+    {
+      path: '/backlog/:id',
+      name: 'team-backlog',
+      component: BacklogView,
+      meta: { requiresAuth: true }
+    },    
   ]
 })
 
