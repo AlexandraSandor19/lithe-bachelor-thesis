@@ -63,4 +63,21 @@ async function getUserTeams(req, res) {
     }
 }
 
-module.exports = { createTeam, getAll, getTeamById, getUserTeams };
+async function addUserToTeam(req, res) {
+    const { id } = req.params;
+    const { user_id } = req.body;
+
+    try {
+        const team = await Team.findById(id);
+        if (!team) {
+            return res.status(422).json({ "message": "Team not found!"});
+        }
+        team.members_ids.push(user_id);
+        team.save();
+        return res.status(200).json(team);
+    } catch (error) {
+        return res.status(404).json({ "message": "Failed to join team!"});
+    }
+}
+
+module.exports = { createTeam, getAll, getTeamById, getUserTeams, addUserToTeam };

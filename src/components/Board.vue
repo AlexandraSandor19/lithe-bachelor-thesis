@@ -131,7 +131,8 @@ onMounted(async () => {
       <h1 class="column-label">OPEN
         <span class="issues-number">{{ state.openIssues.length }}</span>
       </h1>
-      <draggable 
+      <draggable
+        item-key="_id"
         @dragstart="handleDragStart($event)" 
         @change="handleOpenIssue($event)"
         class="drag-column"
@@ -152,6 +153,7 @@ onMounted(async () => {
         <span class="issues-number">{{ state.inProgressIssues.length }}</span>
       </h1>
       <draggable 
+        item-key="_id"
         @dragstart="handleDragStart($event)" 
         @change="handleInProgressIssue($event)" 
         class="drag-column" 
@@ -169,7 +171,8 @@ onMounted(async () => {
       <h1 class="column-label">IN REVIEW
         <span class="issues-number">{{ state.inReviewIssues.length }}</span>
       </h1>
-      <draggable 
+      <draggable
+        item-key="_id"
         @dragstart="handleDragStart($event)" 
         @change="handleInReviewIssue($event)" 
         class="drag-column" 
@@ -186,7 +189,8 @@ onMounted(async () => {
       <h1 class="column-label">DONE
         <span class="issues-number">{{ state.doneIssues.length }}</span>
       </h1>
-      <draggable 
+      <draggable
+        item-key="_id"
         @dragstart="handleDragStart($event)" 
         @change="handleDoneIssue($event)" 
         class="drag-column" 

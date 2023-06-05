@@ -10,4 +10,6 @@ teamRouter.get('/:id', teamControllers.getTeamById);
 
 teamRouter.get('/users/:id', teamControllers.getUserTeams);
 
+teamRouter.put('/join/:id', teamControllers.addUserToTeam);
+
 module.exports = teamRouter;

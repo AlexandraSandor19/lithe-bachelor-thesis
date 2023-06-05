@@ -69,6 +69,15 @@ export const useTeamStore = defineStore('team', {
       } catch (error) {
         throw error.response.data
       }
+    },
+
+    async joinTeam(team_id, user_id) {
+      try {
+        const { data } = await useApi().put(`/api/team/join/${team_id}`, { user_id: user_id})
+        return data
+      } catch (error) {
+        return error.response.data
+      }
     }
   }
 })

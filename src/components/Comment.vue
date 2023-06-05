@@ -93,7 +93,6 @@ const date = computed(() => {
 onMounted(async () => {
   await userStore.getUser();
   image.value = await uploadsStore.getImage(props.user._id);
-  console.log()
   isLoaded.value = true;
 })
 

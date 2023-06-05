@@ -142,7 +142,6 @@ onMounted(async () => {
     .menu-item {
       font-size: 0.96rem;
       color: $grey;
-      font-weight: 600;
       margin: 0.4rem 0 1.1rem 0.7rem;
       transition: all 0.2s ease-in-out;
       cursor: pointer;

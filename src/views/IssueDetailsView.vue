@@ -17,7 +17,6 @@ const userStore = useAuthStore()
 const commentStore = useCommentStore()
 const issueStore = useIssueStore()
 const uploadsStore = useUploadsStore()
-
 const toast = useToast()
 
 const editorText = ref("")
@@ -307,14 +306,9 @@ main {
 }
 
 .issue-name {
-  font-size: 2rem;
-  color: $black-1;
-  padding: 0.3rem 1rem;
-  border-radius: 10px;
-  box-shadow: $box-shadow1;
-  border: 1px solid $whiteish;
-  border-top: 3px solid $main-purple;
-  border-bottom: 3px solid $main-purple;
+  font-size: 2.1rem;
+  color: $dark-grey;
+  font-weight: 600;
 }
 
 .field {

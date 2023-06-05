@@ -112,7 +112,12 @@ onMounted(async () => {
           </span>
         </div>
         <div class="team-table mb-3">
-          <DataTable :value="suggestedTeamsData" tableStyle="width: 100%">
+          <DataTable 
+            :value="suggestedTeamsData" 
+            :metaKeySelection="metaKey"
+            selectionMode="single"
+            @rowSelect="selectTeam"
+            tableStyle="width: 100%">
             <Column field="team.team_name" header="Team" style="font-weight: 600"></Column>
             <Column field="leader" header="Lead"></Column>
             <Column field="noOfProjects" header="Number of Projects"></Column>
