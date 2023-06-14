@@ -52,7 +52,6 @@ onMounted(async () => {
   await userStore.getUser()
   await issueStore.getAll()
   await handleData()
-  console.log(state);
 })
 </script>
 

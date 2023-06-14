@@ -3,7 +3,7 @@ const Issue = require('../models/Issue');
 async function createIssue(req, res) {
     const { issue_name, creator_id, project_id, story_points, priority, labels, assignee_id, goal, description } = req.body;
 
-    if (!issue_name || !description || !goal || !creator_id || !project_id) {
+    if (!issue_name || !description || !goal || !creator_id || !project_id || !priority) {
         return res.status(422).json({'message': 'Required information about the issue has not been submitted.'});
     }
 

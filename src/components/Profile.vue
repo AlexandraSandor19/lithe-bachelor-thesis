@@ -40,9 +40,6 @@ async function uploadFile() {
     formData.append('image', file);
     formData.append('name', file.name);
     formData.append('owner_id', authStore.userData._id);
-    console.log(file);
-    // const response = await uploadStore.upload(formData)
-    // console.log(response);
   } catch (err) {
     console.log(err)
   }

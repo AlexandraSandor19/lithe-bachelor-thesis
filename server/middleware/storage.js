@@ -1,5 +1,4 @@
 const path = require('path');
-const fsPromises = require('fs/promises');
 const multer = require('multer');
 
 const uploadBase = path.resolve(__dirname, "./uploads");

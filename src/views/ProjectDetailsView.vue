@@ -56,7 +56,6 @@ function selectIssue(event) {
 onMounted(async () => {
   await handleData()
   isLoaded.value = true
-  console.log(state.tableData)
 })
 </script>
 

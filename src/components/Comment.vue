@@ -38,10 +38,7 @@ const removeOption = ref([
         command: async () => {
             if (props.user._id === userStore.userData._id) {
                 const response = await commentStore.removeComment(props.id);
-                console.log(response);
                 emit('refreshComments', props.id);
-            } else {
-                console.log("doesn't work");
             }
         }
     }
@@ -198,5 +195,6 @@ onMounted(async () => {
 .content {
     margin-top: 0.5rem;
     color: $dark-grey;
+    font-size: 0.9rem;
 }
 </style>

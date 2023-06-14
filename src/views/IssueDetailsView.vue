@@ -114,7 +114,6 @@ onMounted(async () => {
   await handleComments();
   assigneeImage.value = await uploadsStore.getImage(state.issue.assignee_id);
   creatorImage.value = await uploadsStore.getImage(state.issue.creator_id);
-  console.log(creatorImage.value)
   state.isLoaded = true;
 })
 </script>

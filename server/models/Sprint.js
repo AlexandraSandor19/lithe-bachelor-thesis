@@ -15,7 +15,13 @@ const SprintSchema = Schema(
             type: Date, 
             required: true 
         },
-        issues: [String],
+        state: { 
+            type: String,
+            required: true
+        },
+        issues: {
+            type: Object
+        },
         goal: { 
             type: String 
         },
