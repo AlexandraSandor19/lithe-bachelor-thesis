@@ -1,21 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { priorityIconClass } from '../utils/constants';
-import { useAuthStore } from '../stores/auth'
+import { useProjectStore } from '../stores/project'
 
 const props = defineProps({
   issue: {
     type: Object,
     required: true
-  }
+  },
 })
 
-const assignee = ref('')
-const userStore = useAuthStore()
+const projectStore = useProjectStore()
+const project_name = ref(null)
 
 onMounted(async () => {
-  const user = props.issue.assignee_id ? await userStore.getUserById(props.issue.assignee_id) : "";
-  assignee.value = user.username ?? "";
+  const project = await projectStore.getProjectById(props.issue.project_id);
+  project_name.value = project.project_name ?? "?";
 })
 </script>
 
@@ -27,7 +27,7 @@ onMounted(async () => {
           {{ props.issue.issue_name }}
       </div>
     </div>
-    <div class="project">{{ props.issue.project_id }}</div>
+    <div class="project">{{ project_name }}</div>
     <div class="flex flex-row justify-content-between align-items-center">
     </div>
     <span class="points-text">
@@ -46,9 +46,9 @@ onMounted(async () => {
   border-radius: 10px;
   background-color: $white;
   box-shadow: $box-shadow1;
-  margin: 1rem;
+  margin: 0.5rem 1rem;
   font-family: $pt-sans-font;
-  padding: 1rem 1.5rem;
+  padding: 0.9rem 1.5rem;
   min-width: 13rem;
   border: 1.5px solid $whiteish;
 }
